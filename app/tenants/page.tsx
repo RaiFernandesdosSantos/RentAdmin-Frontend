@@ -2,8 +2,8 @@ import AppHeader from "@/components/app-header"
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
-import { CircleUser, Eye, SquarePen } from "lucide-react"
-
+import { Eye, SquarePen } from "lucide-react"
+import Link from "next/link"
 
 export default function Page() {
   return (
@@ -12,10 +12,12 @@ export default function Page() {
         title="Inquilinos"
         subtitle="Cadastro de locatários e fiadores"
         actions={
-          <Button variant="outline" size="sm">
-            <Plus className="h-4 w-4" />
-            Novo inquilino
-          </Button>
+          <Link href="/tenants/add/">
+            <Button variant="outline" size="sm">
+              <Plus className="h-4 w-4" />
+              Novo inquilino
+            </Button>
+          </Link>
         }
       />
 
@@ -30,7 +32,7 @@ export default function Page() {
                 Contato
               </TableHead>
               <TableHead>
-                CPF
+                Tipo
               </TableHead>
               <TableHead>
                 Status
@@ -39,107 +41,230 @@ export default function Page() {
           </TableHeader>
           <TableBody>
             <TableRow>
-              <TableCell>
-                <CircleUser className="h-4 w-4"/>
-                João Silva
-                Locatário
+              <TableCell className="flex gap-4 w-fit items-center">
+                <div className="bg-blue-300 rounded-3xl h-fit w-fit p-3">
+                  <span className="text-blue-600 font-bold">JS</span>
+                </div>
+                <div className="flex flex-col">
+                  <span>João Silva</span>
+                  <span className="text-muted-foreground">CPF: 056.456.789-89</span>
+                </div>
               </TableCell>
               <TableCell>
                 (67) 9 9999-9999
               </TableCell>
               <TableCell>
-                ***.456.***-**
+                <div className="bg-blue-300 w-fit p-2 rounded-3xl">
+                  <span className="text-blue-600">Locatário</span>
+                </div>
               </TableCell>
               <TableCell>
-                Ativo
+                <div className="bg-green-300 w-fit p-2 rounded-3xl">
+                  <span className="text-green-600">Ativo</span>
+                </div>
               </TableCell>
               <TableCell className="flex justify-between">
-                <Eye className="h-4 w-4"/>
-                <SquarePen className="h-4 w-4"/>
+                <Link href="/tenants/1">
+                  <Button variant="outline" size="sm">
+                    <Eye className="h-4 w-4"/>                
+                  </Button>
+                </Link>
+
+                <Link href="/tenants/edit/1">
+                  <Button variant="outline" size="sm">
+                    <SquarePen className="h-4 w-4"/>
+                  </Button>
+                </Link>
               </TableCell>
             </TableRow>
 
             <TableRow>
-              <TableCell>
-                <CircleUser className="h-4 w-4"/>
-                João Silva
-                Locatário
+              <TableCell className="flex gap-4 w-fit items-center">
+                <div className="bg-blue-300 rounded-3xl h-fit w-fit p-3">
+                  <span className="text-blue-600 font-bold">JS</span>
+                </div>
+                <div className="flex flex-col">
+                  <span>João Silva</span>
+                  <span className="text-muted-foreground">CPF: 056.456.789-89</span>
+                </div>
               </TableCell>
               <TableCell>
                 (67) 9 9999-9999
               </TableCell>
               <TableCell>
-                ***.456.***-**
+                <div className="bg-blue-300 w-fit p-2 rounded-3xl">
+                  <span className="text-blue-600">Locatário</span>
+                </div>
               </TableCell>
               <TableCell>
-                Ativo
+                <div className="bg-green-300 w-fit p-2 rounded-3xl">
+                  <span className="text-green-600">Ativo</span>
+                </div>
               </TableCell>
               <TableCell className="flex justify-between">
-                <Eye className="h-4 w-4"/>
-                <SquarePen className="h-4 w-4"/>
+                <Link href="/tenants/1">
+                  <Button variant="outline" size="sm">
+                    <Eye className="h-4 w-4"/>                
+                  </Button>
+                </Link>
+
+                <Link href="/tenants/edit/1">
+                  <Button variant="outline" size="sm">
+                    <SquarePen className="h-4 w-4"/>
+                  </Button>
+                </Link>
               </TableCell>
             </TableRow>
 
             <TableRow>
-              <TableCell>
-                <CircleUser className="h-4 w-4"/>
-                João Silva
-                Locatário
+              <TableCell className="flex gap-4 w-fit items-center">
+                <div className="bg-blue-300 rounded-3xl h-fit w-fit p-3">
+                  <span className="text-blue-600 font-bold">JS</span>
+                </div>
+                <div className="flex flex-col">
+                  <span>João Silva</span>
+                  <span className="text-muted-foreground">CPF: 056.456.789-89</span>
+                </div>
               </TableCell>
               <TableCell>
                 (67) 9 9999-9999
               </TableCell>
               <TableCell>
-                ***.456.***-**
+                <div className="bg-blue-300 w-fit p-2 rounded-3xl">
+                  <span className="text-blue-600">Locatário</span>
+                </div>
               </TableCell>
               <TableCell>
-                Ativo
+                <div className="bg-green-300 w-fit p-2 rounded-3xl">
+                  <span className="text-green-600">Ativo</span>
+                </div>
               </TableCell>
               <TableCell className="flex justify-between">
-                <Eye className="h-4 w-4"/>
-                <SquarePen className="h-4 w-4"/>
+                <Link href="/tenants/1">
+                  <Button variant="outline" size="sm">
+                    <Eye className="h-4 w-4"/>                
+                  </Button>
+                </Link>
+
+                <Link href="/tenants/edit/1">
+                  <Button variant="outline" size="sm">
+                    <SquarePen className="h-4 w-4"/>
+                  </Button>
+                </Link>
               </TableCell>
             </TableRow>
 
             <TableRow>
-              <TableCell>
-                <CircleUser className="h-4 w-4"/>
-                João Silva
-                Locatário
+              <TableCell className="flex gap-4 w-fit items-center">
+                <div className="bg-blue-300 rounded-3xl h-fit w-fit p-3">
+                  <span className="text-blue-600 font-bold">JS</span>
+                </div>
+                <div className="flex flex-col">
+                  <span>João Silva</span>
+                  <span className="text-muted-foreground">CPF: 056.456.789-89</span>
+                </div>
               </TableCell>
               <TableCell>
                 (67) 9 9999-9999
               </TableCell>
               <TableCell>
-                ***.456.***-**
+                <div className="bg-blue-300 w-fit p-2 rounded-3xl">
+                  <span className="text-blue-600">Locatário</span>
+                </div>
               </TableCell>
               <TableCell>
-                Ativo
+                <div className="bg-green-300 w-fit p-2 rounded-3xl">
+                  <span className="text-green-600">Ativo</span>
+                </div>
               </TableCell>
               <TableCell className="flex justify-between">
-                <Eye className="h-4 w-4"/>
-                <SquarePen className="h-4 w-4"/>
+                <Link href="/tenants/1">
+                  <Button variant="outline" size="sm">
+                    <Eye className="h-4 w-4"/>                
+                  </Button>
+                </Link>
+
+                <Link href="/tenants/edit/1">
+                  <Button variant="outline" size="sm">
+                    <SquarePen className="h-4 w-4"/>
+                  </Button>
+                </Link>
               </TableCell>
             </TableRow>
 
             <TableRow>
-              <TableCell>
-                <CircleUser className="h-4 w-4"/>
-                João Silva
-                Locatário
+              <TableCell className="flex gap-4 w-fit items-center">
+                <div className="bg-blue-300 rounded-3xl h-fit w-fit p-3">
+                  <span className="text-blue-600 font-bold">JS</span>
+                </div>
+                <div className="flex flex-col">
+                  <span>João Silva</span>
+                  <span className="text-muted-foreground">CPF: 056.456.789-89</span>
+                </div>
               </TableCell>
               <TableCell>
                 (67) 9 9999-9999
               </TableCell>
               <TableCell>
-                ***.456.***-**
+                <div className="bg-blue-300 w-fit p-2 rounded-3xl">
+                  <span className="text-blue-600">Locatário</span>
+                </div>
               </TableCell>
               <TableCell>
-                Ativo
+                <div className="bg-green-300 w-fit p-2 rounded-3xl">
+                  <span className="text-green-600">Ativo</span>
+                </div>
               </TableCell>
               <TableCell className="flex justify-between">
-                <Eye className="h-4 w-4"/>
-                <SquarePen className="h-4 w-4"/>
+                <Link href="/tenants/1">
+                  <Button variant="outline" size="sm">
+                    <Eye className="h-4 w-4"/>                
+                  </Button>
+                </Link>
+
+                <Link href="/tenants/edit/1">
+                  <Button variant="outline" size="sm">
+                    <SquarePen className="h-4 w-4"/>
+                  </Button>
+                </Link>
+              </TableCell>
+            </TableRow>
+
+            <TableRow>
+              <TableCell className="flex gap-4 w-fit items-center">
+                <div className="bg-blue-300 rounded-3xl h-fit w-fit p-3">
+                  <span className="text-blue-600 font-bold">JS</span>
+                </div>
+                <div className="flex flex-col">
+                  <span>João Silva</span>
+                  <span className="text-muted-foreground">CPF: 056.456.789-89</span>
+                </div>
+              </TableCell>
+              <TableCell>
+                (67) 9 9999-9999
+              </TableCell>
+              <TableCell>
+                <div className="bg-blue-300 w-fit p-2 rounded-3xl">
+                  <span className="text-blue-600">Locatário</span>
+                </div>
+              </TableCell>
+              <TableCell>
+                <div className="bg-green-300 w-fit p-2 rounded-3xl">
+                  <span className="text-green-600">Ativo</span>
+                </div>
+              </TableCell>
+              <TableCell className="flex justify-between">
+                <Link href="/tenants/1">
+                  <Button variant="outline" size="sm">
+                    <Eye className="h-4 w-4"/>                
+                  </Button>
+                </Link>
+
+                <Link href="/tenants/edit/1">
+                  <Button variant="outline" size="sm">
+                    <SquarePen className="h-4 w-4"/>
+                  </Button>
+                </Link>
               </TableCell>
             </TableRow>
           </TableBody>
