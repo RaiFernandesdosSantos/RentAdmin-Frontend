@@ -2,9 +2,9 @@ import AppHeader from "@/components/app-header"
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
-import { Search, Eye, SquarePen } from "lucide-react"
+import { Eye, RefreshCw } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
+import Link from "next/link"
 
 export default function Page() {
   return (
@@ -13,16 +13,12 @@ export default function Page() {
         title="Contratos"
         subtitle="Gestão e acompanhamento"
         actions={
-          <>
-            <Button variant="outline" size="sm">
-              <Search className="h-4 w-4" />
-            </Button>
-
+          <Link href="/contracts/add/">
             <Button variant="outline" size="sm">
               <Plus className="h-4 w-4" />
               Novo contrato
             </Button>
-          </>
+          </Link>
         }
       />
 
@@ -57,9 +53,9 @@ export default function Page() {
               </TableHeader>
               <TableBody>
                 <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
+                  <TableCell className="flex flex-col">
+                    <span className="font-bold">Casa Jardim Europa</span>
+                    <span className="text-muted-foreground">João Silva</span>
                   </TableCell>
                   <TableCell>
                     01/03/2024 - 01/03/2025
@@ -71,18 +67,28 @@ export default function Page() {
                     R$ 3.000,00
                   </TableCell>
                   <TableCell>
-                    Vence em 22d
+                    <div className="w-fit bg-orange-300 p-1 rounded-3xl">
+                      <span className="text-orange-700">Vence em 22d</span>
+                    </div>
                   </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
+                  <TableCell className="flex justify-between items-center">
+                    <Link href="/contracts/1">
+                      <Button variant="outline">
+                        <Eye className="h-4 w-4"/>
+                      </Button>
+                    </Link>
+                    <Link href="/contracts/renew/1">
+                      <Button variant="outline">
+                        <RefreshCw className="h-4 w-4"/>
+                      </Button>
+                    </Link>
                   </TableCell>
                 </TableRow>
 
                 <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
+                  <TableCell className="flex flex-col">
+                    <span className="font-bold">Casa Jardim Europa</span>
+                    <span className="text-muted-foreground">João Silva</span>
                   </TableCell>
                   <TableCell>
                     01/03/2024 - 01/03/2025
@@ -94,80 +100,17 @@ export default function Page() {
                     R$ 3.000,00
                   </TableCell>
                   <TableCell>
-                    Vence em 22d
+                    <div className="w-fit bg-orange-300 p-1 rounded-3xl">
+                      <span className="text-orange-700">Vence em 22d</span>
+                    </div>
                   </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
-                  </TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
-                  </TableCell>
-                  <TableCell>
-                    01/03/2024 - 01/03/2025
-                  </TableCell>
-                  <TableCell>
-                    R$ 1.500,00
-                  </TableCell>
-                  <TableCell>
-                    R$ 3.000,00
-                  </TableCell>
-                  <TableCell>
-                    Vence em 22d
-                  </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
-                  </TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
-                  </TableCell>
-                  <TableCell>
-                    01/03/2024 - 01/03/2025
-                  </TableCell>
-                  <TableCell>
-                    R$ 1.500,00
-                  </TableCell>
-                  <TableCell>
-                    R$ 3.000,00
-                  </TableCell>
-                  <TableCell>
-                    Vence em 22d
-                  </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
-                  </TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
-                  </TableCell>
-                  <TableCell>
-                    01/03/2024 - 01/03/2025
-                  </TableCell>
-                  <TableCell>
-                    R$ 1.500,00
-                  </TableCell>
-                  <TableCell>
-                    R$ 3.000,00
-                  </TableCell>
-                  <TableCell>
-                    Vence em 22d
-                  </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
+                  <TableCell className="flex justify-between items-center">
+                    <Button variant="outline">
+                      <Eye className="h-4 w-4"/>
+                    </Button>
+                    <Button variant="outline">
+                      <RefreshCw className="h-4 w-4"/>
+                    </Button>
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -197,9 +140,9 @@ export default function Page() {
               </TableHeader>
               <TableBody>
                 <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
+                  <TableCell className="flex flex-col">
+                    <span className="font-bold">Casa Jardim Europa</span>
+                    <span className="text-muted-foreground">João Silva</span>
                   </TableCell>
                   <TableCell>
                     01/03/2024 - 01/03/2025
@@ -211,103 +154,17 @@ export default function Page() {
                     R$ 3.000,00
                   </TableCell>
                   <TableCell>
-                    Ativo
+                    <div className="w-fit bg-orange-300 p-1 rounded-3xl">
+                      <span className="text-orange-700">Vence em 22d</span>
+                    </div>
                   </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
-                  </TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
-                  </TableCell>
-                  <TableCell>
-                    01/03/2024 - 01/03/2025
-                  </TableCell>
-                  <TableCell>
-                    R$ 1.500,00
-                  </TableCell>
-                  <TableCell>
-                    R$ 3.000,00
-                  </TableCell>
-                  <TableCell>
-                    Ativo
-                  </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
-                  </TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
-                  </TableCell>
-                  <TableCell>
-                    01/03/2024 - 01/03/2025
-                  </TableCell>
-                  <TableCell>
-                    R$ 1.500,00
-                  </TableCell>
-                  <TableCell>
-                    R$ 3.000,00
-                  </TableCell>
-                  <TableCell>
-                    Ativo
-                  </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
-                  </TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
-                  </TableCell>
-                  <TableCell>
-                    01/03/2024 - 01/03/2025
-                  </TableCell>
-                  <TableCell>
-                    R$ 1.500,00
-                  </TableCell>
-                  <TableCell>
-                    R$ 3.000,00
-                  </TableCell>
-                  <TableCell>
-                    Ativo
-                  </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
-                  </TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
-                  </TableCell>
-                  <TableCell>
-                    01/03/2024 - 01/03/2025
-                  </TableCell>
-                  <TableCell>
-                    R$ 1.500,00
-                  </TableCell>
-                  <TableCell>
-                    R$ 3.000,00
-                  </TableCell>
-                  <TableCell>
-                    Ativo
-                  </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
+                  <TableCell className="flex justify-between items-center">
+                    <Button variant="outline">
+                      <Eye className="h-4 w-4"/>
+                    </Button>
+                    <Button variant="outline">
+                      <RefreshCw className="h-4 w-4"/>
+                    </Button>
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -337,9 +194,9 @@ export default function Page() {
               </TableHeader>
               <TableBody>
                 <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
+                  <TableCell className="flex flex-col">
+                    <span className="font-bold">Casa Jardim Europa</span>
+                    <span className="text-muted-foreground">João Silva</span>
                   </TableCell>
                   <TableCell>
                     01/03/2024 - 01/03/2025
@@ -351,103 +208,17 @@ export default function Page() {
                     R$ 3.000,00
                   </TableCell>
                   <TableCell>
-                    Vence em 22d
+                    <div className="w-fit bg-orange-300 p-1 rounded-3xl">
+                      <span className="text-orange-700">Vence em 22d</span>
+                    </div>
                   </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
-                  </TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
-                  </TableCell>
-                  <TableCell>
-                    01/03/2024 - 01/03/2025
-                  </TableCell>
-                  <TableCell>
-                    R$ 1.500,00
-                  </TableCell>
-                  <TableCell>
-                    R$ 3.000,00
-                  </TableCell>
-                  <TableCell>
-                    Vence em 22d
-                  </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
-                  </TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
-                  </TableCell>
-                  <TableCell>
-                    01/03/2024 - 01/03/2025
-                  </TableCell>
-                  <TableCell>
-                    R$ 1.500,00
-                  </TableCell>
-                  <TableCell>
-                    R$ 3.000,00
-                  </TableCell>
-                  <TableCell>
-                    Vence em 22d
-                  </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
-                  </TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
-                  </TableCell>
-                  <TableCell>
-                    01/03/2024 - 01/03/2025
-                  </TableCell>
-                  <TableCell>
-                    R$ 1.500,00
-                  </TableCell>
-                  <TableCell>
-                    R$ 3.000,00
-                  </TableCell>
-                  <TableCell>
-                    Vence em 22d
-                  </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
-                  </TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
-                  </TableCell>
-                  <TableCell>
-                    01/03/2024 - 01/03/2025
-                  </TableCell>
-                  <TableCell>
-                    R$ 1.500,00
-                  </TableCell>
-                  <TableCell>
-                    R$ 3.000,00
-                  </TableCell>
-                  <TableCell>
-                    Vence em 22d
-                  </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
+                  <TableCell className="flex justify-between items-center">
+                    <Button variant="outline">
+                      <Eye className="h-4 w-4"/>
+                    </Button>
+                    <Button variant="outline">
+                      <RefreshCw className="h-4 w-4"/>
+                    </Button>
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -477,9 +248,9 @@ export default function Page() {
               </TableHeader>
               <TableBody>
                 <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
+                  <TableCell className="flex flex-col">
+                    <span className="font-bold">Casa Jardim Europa</span>
+                    <span className="text-muted-foreground">João Silva</span>
                   </TableCell>
                   <TableCell>
                     01/03/2024 - 01/03/2025
@@ -491,103 +262,17 @@ export default function Page() {
                     R$ 3.000,00
                   </TableCell>
                   <TableCell>
-                    Encerrado
+                    <div className="w-fit bg-orange-300 p-1 rounded-3xl">
+                      <span className="text-orange-700">Vence em 22d</span>
+                    </div>
                   </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
-                  </TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
-                  </TableCell>
-                  <TableCell>
-                    01/03/2024 - 01/03/2025
-                  </TableCell>
-                  <TableCell>
-                    R$ 1.500,00
-                  </TableCell>
-                  <TableCell>
-                    R$ 3.000,00
-                  </TableCell>
-                  <TableCell>
-                    Encerrado
-                  </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
-                  </TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
-                  </TableCell>
-                  <TableCell>
-                    01/03/2024 - 01/03/2025
-                  </TableCell>
-                  <TableCell>
-                    R$ 1.500,00
-                  </TableCell>
-                  <TableCell>
-                    R$ 3.000,00
-                  </TableCell>
-                  <TableCell>
-                    Encerrado
-                  </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
-                  </TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
-                  </TableCell>
-                  <TableCell>
-                    01/03/2024 - 01/03/2025
-                  </TableCell>
-                  <TableCell>
-                    R$ 1.500,00
-                  </TableCell>
-                  <TableCell>
-                    R$ 3.000,00
-                  </TableCell>
-                  <TableCell>
-                    Encerrado
-                  </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
-                  </TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell>
-                    Casa Jardim Europa
-                    João Silva
-                  </TableCell>
-                  <TableCell>
-                    01/03/2024 - 01/03/2025
-                  </TableCell>
-                  <TableCell>
-                    R$ 1.500,00
-                  </TableCell>
-                  <TableCell>
-                    R$ 3.000,00
-                  </TableCell>
-                  <TableCell>
-                    Encerrado
-                  </TableCell>
-                  <TableCell className="flex justify-between">
-                    <Eye className="h-4 w-4"/>
-                    <SquarePen className="h-4 w-4"/>
+                  <TableCell className="flex justify-between items-center">
+                    <Button variant="outline">
+                      <Eye className="h-4 w-4"/>
+                    </Button>
+                    <Button variant="outline">
+                      <RefreshCw className="h-4 w-4"/>
+                    </Button>
                   </TableCell>
                 </TableRow>
               </TableBody>

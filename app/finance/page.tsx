@@ -39,7 +39,7 @@ export default function Page() {
                     <CardDescription className="text-xl">Entradas no mês</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div className="text-4xl font-bold">R$ 4.800,00</div>
+                    <div className="text-4xl font-bold text-green-600">R$ 4.800,00</div>
                 </CardContent>
             </Card>
 
@@ -48,7 +48,7 @@ export default function Page() {
                     <CardDescription className="text-xl">Saídas no mês</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div className="text-4xl font-bold">R$ 920,00</div>
+                    <div className="text-4xl font-bold text-red-600">R$ 920,00</div>
                 </CardContent>
             </Card>
         </div>
@@ -66,45 +66,28 @@ export default function Page() {
                 <TableBody>
                     <TableRow>
                         <TableCell>
-                            05/01
+                            <span className="text-muted-foreground">05/01</span>
                         </TableCell>
                         <TableCell>Aluguel Apto Centro</TableCell>
-                        <TableCell>Aluguel</TableCell>
-                        <TableCell>+ R$ 1.500,00</TableCell>
+                        <TableCell className="text-muted-foreground">
+                            <span>Aluguel</span>
+                        </TableCell>
+                        <TableCell className="text-green-600">
+                            <span>+ R$ 1.500,00</span>
+                        </TableCell>
                     </TableRow>
 
                     <TableRow>
                         <TableCell>
-                            05/01
+                            <span className="text-muted-foreground">05/01</span>
                         </TableCell>
-                        <TableCell>Aluguel Apto Centro</TableCell>
-                        <TableCell>Aluguel</TableCell>
-                        <TableCell>+ R$ 1.500,00</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                        <TableCell>05/01</TableCell>
-                        <TableCell>Aluguel Apto Centro</TableCell>
-                        <TableCell>Aluguel</TableCell>
-                        <TableCell>+ R$ 1.500,00</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                        <TableCell>
-                            05/01
+                        <TableCell>Manutencao Apto Centro</TableCell>
+                        <TableCell className="text-muted-foreground">
+                            <span>Manutencao</span>
                         </TableCell>
-                        <TableCell>Aluguel Apto Centro</TableCell>
-                        <TableCell>Aluguel</TableCell>
-                        <TableCell>+ R$ 1.500,00</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                        <TableCell>
-                            05/01
+                        <TableCell className="text-red-600">
+                            <span>- R$ 500,00</span>
                         </TableCell>
-                        <TableCell>Aluguel Apto Centro</TableCell>
-                        <TableCell>Aluguel</TableCell>
-                        <TableCell>+ R$ 1.500,00</TableCell>
                     </TableRow>
                 </TableBody>
             </Table>

@@ -1,160 +1,114 @@
 import AppHeader from "@/components/app-header"
-import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/table"
+import { Card, CardHeader, CardContent, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Plus } from "lucide-react"
-import { Eye, SquarePen } from "lucide-react"
+import { SquarePen, Trash2, ArrowLeft } from "lucide-react"
 import Link from "next/link"
+import { Separator } from "@/components/ui/separator"
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 
 export default function Page() {
   return (
     <>
       <AppHeader 
-        title="Inquilinos"
-        subtitle="Cadastro de locatários e fiadores"
+        title="João Silva1"
+        subtitle="Locatário ativo"
         actions={
-          <Button variant="outline" size="sm">
-            <Plus className="h-4 w-4" />
-            Novo inquilino
-          </Button>
+          <>
+            <Link href="/tenants/">
+              <Button variant="outline" size="sm">
+                <ArrowLeft className="h-4 w-4" />
+                Voltar
+              </Button>
+            </Link>
+
+
+            <Button variant="outline" size="sm">
+              <SquarePen className="h-4 w-4" />
+              Editar
+            </Button>
+
+            <Button variant="outline" size="sm">
+              <Trash2 className="h-4 w-4" />
+              Excluir
+            </Button>
+          </>
         }
       />
 
-      <div className="min-h-svh p-4">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>
-                Nome
-              </TableHead>
-              <TableHead>
-                Contato
-              </TableHead>
-              <TableHead>
-                Tipo
-              </TableHead>
-              <TableHead>
-                Status
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell className="flex gap-4 w-fit items-center">
-                <div className="bg-blue-300 rounded-3xl h-fit w-fit p-3">
-                  <span className="text-blue-600 font-bold">JS</span>
-                </div>
-                <div className="flex flex-col">
-                  <span>João Silva</span>
-                  <span className="text-muted-foreground">CPF: 056.456.789-89</span>
-                </div>
-              </TableCell>
-              <TableCell>
-                (67) 9 9999-9999
-              </TableCell>
-              <TableCell>
-                <div className="bg-blue-300 w-fit p-2 rounded-3xl">
+      <div className="min-h-svh p-4 flex gap-5">
+        <div className="w-1/2">
+          <Card>
+            <CardHeader className="flex items-center gap-5">
+              <div className="w-15 bg-blue-300 justify-center flex h-15 items-center rounded-full">
+                <span>JS</span>
+              </div>
+
+              <div>
+                <span className="font-bold text-3xl">João Silva</span>
+                <div className="w-fit bg-blue-300 p-1 rounded-2xl">
                   <span className="text-blue-600">Locatário</span>
                 </div>
-              </TableCell>
-              <TableCell>
-                <div className="bg-green-300 w-fit p-2 rounded-3xl">
-                  <span className="text-green-600">Ativo</span>
+              </div>
+            </CardHeader>
+
+            <CardContent>
+              <CardDescription>DADOS PESSOAIS</CardDescription>
+              <Separator />
+
+              <Table>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>CPF: </TableCell>
+                    <TableCell className="text-right">054.456.789-89</TableCell>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableCell>Telefone: </TableCell>
+                    <TableCell className="text-right">(67) 9 9879-9689</TableCell>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableCell>Profissão: </TableCell>
+                    <TableCell className="text-right">Engenheiro</TableCell>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableCell>Renda mensal: </TableCell>
+                    <TableCell className="text-right">R$ 6.000</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="w-1/2">
+          <Card>
+            <CardContent>
+              <CardDescription>CONTRATOS VINCULADOS</CardDescription>
+              <Separator />
+
+              <div className="flex mt-3">
+                <div className="flex flex-col w-1/2">
+                  <span className="font-bold">Casa Jardim Europa</span>
+                  <span className="text-muted-foreground">R$ 1.500/mês - vence 01/03/2027</span>
                 </div>
-              </TableCell>
-              <TableCell className="flex justify-between">
-                <Button variant="outline" size="sm">
-                  <Link href="">
-                    <Eye className="h-4 w-4"/>
-                  </Link>
-                </Button>
+                <div className="w-1/2 flex items-center justify-center">
+                  <div className="w-10 h-10 bg-green-300 flex items-center justify-center rounded-full">
+                    <span className="text-green-600">Ativo</span>
+                  </div>
+                </div>
+              </div>
 
-                <Button variant="outline" size="sm">
-                  <SquarePen className="h-4 w-4"/>
-                </Button>
-              </TableCell>
-            </TableRow>
+              <CardDescription className="mt-3">FIADOR DE</CardDescription>
+              <Separator />
 
-            <TableRow>
-              <TableCell>
-                João Silva
-                Locatário
-              </TableCell>
-              <TableCell>
-                (67) 9 9999-9999
-              </TableCell>
-              <TableCell>
-                ***.456.***-**
-              </TableCell>
-              <TableCell>
-                Ativo
-              </TableCell>
-              <TableCell className="flex justify-between">
-                <Eye className="h-4 w-4"/>
-                <SquarePen className="h-4 w-4"/>
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell>
-                João Silva
-                Locatário
-              </TableCell>
-              <TableCell>
-                (67) 9 9999-9999
-              </TableCell>
-              <TableCell>
-                ***.456.***-**
-              </TableCell>
-              <TableCell>
-                Ativo
-              </TableCell>
-              <TableCell className="flex justify-between">
-                <Eye className="h-4 w-4"/>
-                <SquarePen className="h-4 w-4"/>
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell>
-                João Silva
-                Locatário
-              </TableCell>
-              <TableCell>
-                (67) 9 9999-9999
-              </TableCell>
-              <TableCell>
-                ***.456.***-**
-              </TableCell>
-              <TableCell>
-                Ativo
-              </TableCell>
-              <TableCell className="flex justify-between">
-                <Eye className="h-4 w-4"/>
-                <SquarePen className="h-4 w-4"/>
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell>
-                João Silva
-                Locatário
-              </TableCell>
-              <TableCell>
-                (67) 9 9999-9999
-              </TableCell>
-              <TableCell>
-                ***.456.***-**
-              </TableCell>
-              <TableCell>
-                Ativo
-              </TableCell>
-              <TableCell className="flex justify-between">
-                <Eye className="h-4 w-4"/>
-                <SquarePen className="h-4 w-4"/>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+              <div className="mt-3">
+                <span className="text-muted-foreground">Nenhum contrato como fiador</span>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </>
   )
