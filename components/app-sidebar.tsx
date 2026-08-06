@@ -108,7 +108,7 @@ export function AppSidebar() {
               <SidebarMenuButton tooltip="Extrato">
                 <Link href="/finance" className="flex items-center gap-2">
                   <List />
-                  <span>Extrato</span>
+                  <span>Contas bancárias</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -128,7 +128,7 @@ export function AppSidebar() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton tooltip="A receber">
-                <Link href="/finance/receivables" className="flex items-center gap-2">
+                <Link href="/analytics/dre/" className="flex items-center gap-2">
                   <ClipboardMinus />
                   <span>DRE</span>
                 </Link>
@@ -136,7 +136,7 @@ export function AppSidebar() {
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton tooltip="A pagar">
-                <Link href="/finance/payables" className="flex items-center gap-2">
+                <Link href="/analytics/dfc" className="flex items-center gap-2">
                   <ArrowLeftRight />
                   <span>DFC</span>
                 </Link>
