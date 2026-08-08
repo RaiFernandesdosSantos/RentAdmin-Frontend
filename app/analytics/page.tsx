@@ -9,7 +9,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
-import {Download, ArrowUp, ArrowDown} from "lucide-react"
+import {Download} from "lucide-react"
+import { MetricCard } from "@/components/metric-card"
 
 export default function Page() {
   return (
@@ -39,54 +40,33 @@ export default function Page() {
 
       <div className="min-h-svh p-4">
         <div className="h-1/4 flex gap-4 flex-1">
-          <Card className="flex-1">
-            <CardHeader>
-              <CardDescription className="text-xl">Receita Mensal</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-4xl font-bold">R$ 12.345,00</div>
-              <div className="text-green-600 flex gap-3"> 
-                <ArrowUp className="w-4 h-4"/>
-                <span>+5,2% vs. Mês Anterior</span>
-              </div>
-            </CardContent>
-          </Card>
+          <MetricCard 
+            label="Receita Mensal"
+            value="R$ 12.345,00"
+            delta="+5,2 vs. mês anterior"
+            deltaType="up"
+          />
 
-          <Card className="flex-1">
-            <CardHeader>
-              <CardDescription className="text-xl">ROE médio do portfólio</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-4xl font-bold">7,40%</div>
-              <div className="text-green-600 flex gap-3">
-                <ArrowUp className="w-4 h-4"/>  
-                <span>+0,3pp</span>
-              </div>
-            </CardContent>
-          </Card>
+          <MetricCard 
+            label="ROE médio do portfólio"
+            value="7,40%"
+            delta="+ 0,3pp"
+            deltaType="up"
+          />
 
-          <Card className="flex-1">
-            <CardHeader>
-              <CardDescription className="text-xl">Vacância</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-4xl font-bold">1 imóvel</div>
-              <div className="text-red-600 flex gap-3">
-                <ArrowDown className="w-4 h-4"/>
-                <span>16,6% do portfólio</span>
-              </div>
-            </CardContent>
-          </Card>
+          <MetricCard 
+            label="Vacância"
+            value="1 imóvel"
+            delta="16,60% do porfólio"
+            deltaType="down"
+          />
 
-          <Card className="flex-1">
-            <CardHeader>
-              <CardDescription className="text-xl">Contratos a vencer</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-4xl font-bold">2</div>
-              <div className="text-yellow-600">Próx. 60 dias</div>
-            </CardContent>
-          </Card>
+          <MetricCard 
+            label="Contrato a vencer"
+            value="2"
+            delta="Próx. 60 dias"
+            deltaType="neutral"
+          />
         </div>
         
         <div className="h-3/4 flex-1">

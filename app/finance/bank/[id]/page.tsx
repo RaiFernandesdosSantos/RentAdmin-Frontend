@@ -5,6 +5,7 @@ import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { SquarePen, Trash2, ArrowLeft, Download } from "lucide-react"
+import { MetricCard } from "@/components/metric-card"
 
 export default function Page() {
   return (
@@ -38,32 +39,22 @@ export default function Page() {
 
       <div className="min-h-svh p-4">
         <div className="flex flex-1 gap-3">
-            <Card className="flex-1">
-                <CardHeader>
-                    <CardDescription className="text-xl">Saldo atual</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="text-4xl font-bold">R$ 4.800,00</div>
-                </CardContent>
-            </Card>
+            <MetricCard 
+                label="Saldo atual"
+                value="R$ 4.800,00"
+            />
+            
+            <MetricCard 
+                label="Entradas no mês"
+                value="R$ 4.800,00"
+                deltaType="up"
+            />
 
-            <Card className="flex-1">
-                <CardHeader>
-                    <CardDescription className="text-xl">Entradas no mês</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="text-4xl font-bold text-green-600">R$ 4.800,00</div>
-                </CardContent>
-            </Card>
-
-            <Card className="flex-1">
-                <CardHeader>
-                    <CardDescription className="text-xl">Saídas no mês</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="text-4xl font-bold text-red-600">R$ 920,00</div>
-                </CardContent>
-            </Card>
+            <MetricCard 
+                label="Saídas no mês"
+                value="R$ 920,00"
+                deltaType="down"
+            />
         </div>
 
         <div className="flex-1 pt-4">

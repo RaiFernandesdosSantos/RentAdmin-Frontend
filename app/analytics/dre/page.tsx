@@ -1,10 +1,10 @@
 import AppHeader from "@/components/app-header"
-import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Download } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
+import { Card } from "@/components/ui/card"
+import { MetricCard } from "@/components/metric-card"
+import { ReportSection } from "@/components/app-report"
 
 export default function Page() {
   return (
@@ -44,32 +44,22 @@ export default function Page() {
 
       <div className="min-h-svh p-4">
         <div className="flex flex-1 gap-3">
-            <Card className="flex-1">
-                <CardHeader>
-                    <CardDescription className="text-xl">Receita bruta</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="text-4xl font-bold text-green-600">R$ 4.800,00</div>
-                </CardContent>
-            </Card>
+            <MetricCard 
+                label="Receita bruta"
+                value="R$ 4.800,00"
+                deltaType="up"
+            />
 
-            <Card className="flex-1">
-                <CardHeader>
-                    <CardDescription className="text-xl">Despesas operacionais</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="text-4xl font-bold text-red-600">R$ 920,00</div>
-                </CardContent>
-            </Card>
+            <MetricCard 
+                label="Despesas operacionais"
+                value="R$ 920,00"
+                deltaType="down"
+            />
 
-            <Card className="flex-1">
-                <CardHeader>
-                    <CardDescription className="text-xl">Resultado líquido</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="text-4xl font-bold">R$ 3.880,00</div>
-                </CardContent>
-            </Card>
+            <MetricCard 
+                label="Resultado líquido"
+                value="R$ 3.880,00"
+            />
         </div>
 
         <div className="flex-1 mt-3">
@@ -81,73 +71,64 @@ export default function Page() {
                     <div className="text-right w-2/12">Acum. ano</div>
                 </div>
 
-                <div className="bg-gray-900 p-3">
-                    <span className="text-green-600">3 - Receitas</span>
-                    <Table className="mt-3">
-                        <TableBody>
-                            <TableRow>
-                                <TableCell className="w-6/12">3.1.1 - Aluguel residencial</TableCell>
-                                <TableCell className="w-2/12 text-right">R$ 3.300</TableCell>
-                                <TableCell className="w-2/12 text-right">R$ 3.300</TableCell>
-                                <TableCell className="w-2/12 text-right">R$ 3.300</TableCell>
-                            </TableRow>
+                <ReportSection 
+                    title="3 - Receitas"
+                    type="revenue"
+                    rows={
+                        [
+                            {
+                                account: "3.1.1 - Aluguel residencial",
+                                current: 3300,
+                                previous: 3300,
+                                accumulated: 3300 + 3300
+                            },
+                            {
+                                account: "3.1.2 - Aluguel comercial",
+                                current: 1500,
+                                previous: 1500,
+                                accumulated: 1500 + 1500
+                            },
+                            {
+                                account: "3.2.1 - Multas e juros",
+                                current: 0,
+                                previous: 150,
+                                accumulated: 150
+                            }
+                        ]
+                    }
+                    totalLabel="Total receitas"
+                    total={
+                        {current: 3300 + 1500, previous: 1500 + 3300 + 150, accumulated: 1500 + 1500 + 3300 + 3300 + 150 }
+                    }
+                />
 
-                            <TableRow>
-                                <TableCell className="w-6/12">3.1.2 - Aluguel comercial</TableCell>
-                                <TableCell className="w-2/12 text-right">R$ 1.500</TableCell>
-                                <TableCell className="w-2/12 text-right">R$ 1.500</TableCell>
-                                <TableCell className="w-2/12 text-right">R$ 1.500</TableCell>
-                            </TableRow>
+                <ReportSection 
+                    title="4 - Despesas operacionais"
+                    type="expense"
+                    rows={
+                        [
+                            {
+                                account: "4.1.1 - IPTU",
+                                current: 320,
+                                previous: 320,
+                                accumulated: 320 + 320
+                            },
+                            {
+                                account: "4.2.1 - Manutenção",
+                                current: 600,
+                                previous: 0,
+                                accumulated: 600
+                            }
+                        ]
+                    }
+                    totalLabel="Total despesas"
+                    total={
+                        {current: 320 + 600, previous: 320, accumulated: 320 + 320 + 600 }
+                    }
+                />
 
-                            <TableRow>
-                                <TableCell className="w-6/12">3.2.1 - Multas e juros</TableCell>
-                                <TableCell className="w-2/12 text-right">-</TableCell>
-                                <TableCell className="w-2/12 text-right">R$ 150</TableCell>
-                                <TableCell className="w-2/12 text-right">R$ 150</TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
-
-                    <Separator className="mt-3"/>
-                    <div className="mt-3 flex">
-                        <div className="w-6/12">Total receitas</div>
-                        <div className="w-2/12 text-right text-green-600">R$ 4.800</div>
-                        <div className="w-2/12 text-right text-green-600">R$ 4.950</div>
-                        <div className="text-right w-2/12 text-green-600">R$ 4.950</div>
-                    </div>
-                </div>
-
-                <div className="mt-3 bg-gray-900 p-3">
-                    <span className="text-red-600">4 - Despesas operacionais</span>
-                    <Table className="mt-3">
-                        <TableBody>
-                            <TableRow>
-                                <TableCell className="w-6/12">4.1.1 - IPTU</TableCell>
-                                <TableCell className="w-2/12 text-right">R$ 320</TableCell>
-                                <TableCell className="w-2/12 text-right">R$ 320</TableCell>
-                                <TableCell className="w-2/12 text-right">R$ 320</TableCell>
-                            </TableRow>
-
-                            <TableRow>
-                                <TableCell className="w-6/12">4.2.1 - Manutenção</TableCell>
-                                <TableCell className="w-2/12 text-right">R$ 600</TableCell>
-                                <TableCell className="w-2/12 text-right">-</TableCell>
-                                <TableCell className="w-2/12 text-right">R$ 600</TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
-
-                    <Separator className="mt-3"/>
-                    <div className="mt-3 flex">
-                        <div className="w-6/12">Total despesas</div>
-                        <div className="w-2/12 text-right text-red-600">R$ 920</div>
-                        <div className="w-2/12 text-right text-red-600">R$ 320</div>
-                        <div className="text-right w-2/12 text-red-600">R$ 920</div>
-                    </div>
-                </div>
-
-                <div className="mt-3 bg-gray-900 p-3">
-                    <div className="mt-3 flex">
+                <div className="bg-muted/40 p-3 mt-3 rounded-md">
+                    <div className="flex">
                         <div className="w-6/12">Resultado líquido</div>
                         <div className="w-2/12 text-right text-green-600">R$ 3.880</div>
                         <div className="w-2/12 text-right text-green-600">R$ 4.630</div>

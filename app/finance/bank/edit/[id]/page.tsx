@@ -1,13 +1,12 @@
-'use client'
-
 import AppHeader from "@/components/app-header"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardDescription, CardContent } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { Field, FieldLabel, FieldGroup, FieldContent, FieldDescription } from "@/components/ui/field"
+import { Card, CardContent } from "@/components/ui/card"
+import { Field, FieldLabel, FieldContent, FieldDescription } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
+import { FormSection } from "@/components/form-section"
+import { SettingRow } from "@/components/setting-row"
 
 export default function Page() {
   return (
@@ -34,10 +33,8 @@ export default function Page() {
         <Card>
           <CardContent>
             <form action="">
-              <CardDescription>DADOS DA CONTA</CardDescription>
-              <Separator />
-                <FieldGroup className="mt-3 grid grid-cols-2 min-w-full">
-                    <Field>
+              <FormSection title="DADOS DA CONTA">
+                <Field>
                         <FieldLabel htmlFor="conta">Nome/apelido</FieldLabel>
                         <Input id="conta" placeholder="Ex: Nubank, Itaú Principal"/>
                     </Field>
@@ -56,19 +53,16 @@ export default function Page() {
                         <FieldLabel htmlFor="conta">Saldo inicial (R$)</FieldLabel>
                         <Input id="conta" placeholder="0,00"/>
                     </Field>
-                </FieldGroup>
+              </FormSection>
 
-                <Field orientation="horizontal" className="flex-1 mt-5">
-                    <FieldContent>
-                        <FieldLabel htmlFor="switch-focus-mode">
-                            Conta ativa
-                        </FieldLabel>
-                        <FieldDescription>
-                            Desativar oculta a conta dos relátorios
-                        </FieldDescription>
-                    </FieldContent>
-                    <Switch id="switch-focus-mode" defaultChecked/>
-                </Field>
+              <SettingRow 
+                label="Conta ativa" 
+                description="Desativa oculta a conta nos relátorios"
+                showSeparator={false}
+                className="mt-3"
+              >
+                <Switch id="switch-focus-mode" defaultChecked/>
+              </SettingRow>
             </form>
           </CardContent>
         </Card>

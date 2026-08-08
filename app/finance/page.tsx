@@ -5,6 +5,7 @@ import { Plus } from "lucide-react"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
+import { MetricCard } from "@/components/metric-card"
 
 
 export default function Page() {
@@ -25,32 +26,20 @@ export default function Page() {
 
       <div className="min-h-svh p-4">
         <div className="flex flex-1 gap-3">
-            <Card className="flex-1">
-                <CardHeader>
-                    <CardDescription className="text-xl">Saldo total consolidado</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="text-4xl font-bold">R$ 18.490,00</div>
-                </CardContent>
-            </Card>
+            <MetricCard 
+                label="Saldo total consolidado"
+                value="R$ 18.490,00"
+            />
 
-            <Card className="flex-1">
-                <CardHeader>
-                    <CardDescription className="text-xl">Contas ativas</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="text-4xl font-bold">2</div>
-                </CardContent>
-            </Card>
+            <MetricCard 
+                label="Contas ativas"
+                value="2"
+            />
 
-            <Card className="flex-1">
-                <CardHeader>
-                    <CardDescription className="text-xl">último movimentação</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="text-4xl font-bold">Hoje</div>
-                </CardContent>
-            </Card>
+            <MetricCard 
+                label="Última movimentação"
+                value="Hoje"
+            />
         </div>
 
         <div className="flex-1 pt-4">

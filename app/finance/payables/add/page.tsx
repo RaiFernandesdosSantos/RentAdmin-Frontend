@@ -1,23 +1,14 @@
-'use client'
-
 import AppHeader from "@/components/app-header"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardDescription, CardContent } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { Field, FieldLabel, FieldGroup } from "@/components/ui/field"
+import { Card, CardContent } from "@/components/ui/card"
+import { Field, FieldLabel } from "@/components/ui/field"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
-import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { useState } from "react"
-import { ptBR } from "date-fns/locale"
+import { DatePickerField } from "@/components/date-picker"
+import { FormSection } from "@/components/form-section"
 
 export default function Page() {
-    const [date, setDate] = useState<Date>()
-
   return (
     <>
       <AppHeader 
@@ -42,9 +33,7 @@ export default function Page() {
         <Card>
           <CardContent>
             <form action="">
-              <CardDescription>DADOS DA DESPESA</CardDescription>
-              <Separator />
-                <FieldGroup className="mt-3 grid grid-cols-2 min-w-full">
+                <FormSection title="DADOS DA DESPESA">
                     <Field>
                         <FieldLabel htmlFor="desc">Descrição</FieldLabel>
                         <Input id="desc" placeholder="Ex: IPTU Casa Jardim Europa"/>
@@ -81,26 +70,10 @@ export default function Page() {
                         <Input id="valor" placeholder="0,00"/>
                     </Field>
 
-                    <Field>
-                        <FieldLabel htmlFor="vencimento">Data de vencimento</FieldLabel>
-                        <Popover>
-                            <PopoverTrigger 
-                                render={
-                                <Button 
-                                    variant="outline" 
-                                    data-empty={!date}
-                                    className="justify-start text-left font-normal data-[empty=true]:text-muted-foreground"
-                                />
-                                }
-                            >
-                                <CalendarIcon />
-                                {date ? format(date, "PPP", {locale: ptBR}) : <span>dd/mm/aaaa</span>}
-                            </PopoverTrigger>
-                            <PopoverContent>
-                                <Calendar mode="single" selected={date} onSelect={setDate} locale={ptBR}/>
-                            </PopoverContent>
-                        </Popover>
-                    </Field>
+                    <DatePickerField 
+                        label="Data de vencimento"
+                        id="vencimento"
+                    />                    
 
                     <Field>
                         <FieldLabel htmlFor="recorrente">Recorrente?</FieldLabel>
@@ -114,7 +87,7 @@ export default function Page() {
                             </SelectContent>
                         </Select>
                     </Field>
-                </FieldGroup>
+                </FormSection>
             </form>
           </CardContent>
         </Card>

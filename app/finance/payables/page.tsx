@@ -1,9 +1,11 @@
 import AppHeader from "@/components/app-header"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
-import { Card, CardHeader, CardContent, CardDescription } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Table, TableHeader, TableHead, TableCell, TableBody, TableRow } from "@/components/ui/table"
 import Link from "next/link"
+import { MetricCard } from "@/components/metric-card"
+import { StatusBadge } from "@/components/app-badge"
 
 
 export default function Page() {
@@ -24,32 +26,22 @@ export default function Page() {
 
       <div className="min-h-svh p-4">
         <div className="flex flex-1 gap-3">
-            <Card className="flex-1">
-                <CardHeader>
-                    <CardDescription className="text-xl">A pagar esse mês</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="text-4xl font-bold">R$ 1.240,00</div>
-                </CardContent>
-            </Card>
+            <MetricCard 
+                label="A pagar esse mês"
+                value="R$ 1.240,00"
+                deltaType="down"
+            />
 
-            <Card className="flex-1">
-                <CardHeader>
-                    <CardDescription className="text-xl">Pago</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="text-4xl font-bold text-green-600">R$ 920,00</div>
-                </CardContent>
-            </Card>
+            <MetricCard 
+                label="Pago"
+                value="R$ 920,00"
+                deltaType="down"
+            />
 
-            <Card className="flex-1">
-                <CardHeader>
-                    <CardDescription className="text-xl">Pendente</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="text-4xl font-bold text-red-600">R$ 320,00</div>
-                </CardContent>
-            </Card>
+            <MetricCard 
+                label="Pendente"
+                value="R$ 320,00"
+            />
         </div>
 
         <div className="flex-1 pt-4">
@@ -75,9 +67,7 @@ export default function Page() {
                                 <TableCell>R$ 320,00</TableCell>
                                 <TableCell className="text-muted-foreground">IPTU</TableCell>
                                 <TableCell>
-                                    <div className="w-fit bg-yellow-300 rounded-3xl p-1">
-                                        <span className="text-yellow-600">Pendente</span>
-                                    </div>
+                                    <StatusBadge status="pending"/>
                                 </TableCell>
                                 <TableCell>
                                     <Button variant="outline" size="sm">Baixar</Button>
@@ -93,9 +83,7 @@ export default function Page() {
                                 <TableCell>R$ 320,00</TableCell>
                                 <TableCell className="text-muted-foreground">IPTU</TableCell>
                                 <TableCell>
-                                    <div className="w-fit bg-yellow-300 rounded-3xl p-1">
-                                        <span className="text-yellow-600">Pendente</span>
-                                    </div>
+                                    <StatusBadge status="paid"/>
                                 </TableCell>
                                 <TableCell>
                                     <Button variant="outline" size="sm">Baixar</Button>

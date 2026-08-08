@@ -3,7 +3,8 @@ import { Card, CardHeader, CardTitle, CardDescription, CardFooter, CardContent }
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import Link from "next/link"
-
+import { StatusBadge } from "@/components/app-badge"
+import { PropertyCard } from "@/components/property-card"
 
 export default function Page() {
   return (
@@ -30,9 +31,7 @@ export default function Page() {
                   <CardTitle>Casa Jardim Europa</CardTitle>
                   <CardDescription>Residencial - Rua das Flores, 120</CardDescription>
                 </div>
-                <div>
-                  <CardDescription className="bg-green-600/50 p-1 rounded-4xl text-green-300">Alugado</CardDescription>
-                </div>
+                <StatusBadge status="rented"/>
               </CardHeader>
               <CardContent className="flex justify-between">
                 <div className="flex flex-col bg-slate-700 p-3 rounded-md">
@@ -60,9 +59,7 @@ export default function Page() {
                 <CardTitle>Casa Jardim Europa</CardTitle>
                 <CardDescription>Residencial - Rua das Flores, 120</CardDescription>
               </div>
-              <div>
-                <CardDescription className="bg-green-600/50 p-1 rounded-4xl text-green-300">Alugado</CardDescription>
-              </div>
+              <StatusBadge status="rented"/>
             </CardHeader>
             <CardContent className="flex justify-between">
               <div className="flex flex-col bg-slate-700 p-3 rounded-md">
@@ -89,187 +86,7 @@ export default function Page() {
                 <CardTitle>Casa Jardim Europa</CardTitle>
                 <CardDescription>Residencial - Rua das Flores, 120</CardDescription>
               </div>
-              <div>
-                <CardDescription className="bg-green-600/50 p-1 rounded-4xl text-green-300">Alugado</CardDescription>
-              </div>
-            </CardHeader>
-            <CardContent className="flex justify-between">
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">ROE</span>
-                <span className="text-green-400">8,1%</span>
-              </div>
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">Aluguel</span>
-                <span>R$ 1.500,00</span>
-              </div>
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">Val. aprox.</span>
-                <span>R$ 220k</span>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <CardDescription>Inquilino: João Silva</CardDescription>
-            </CardFooter>
-          </Card>
-        </div>
-
-        <div className="flex flex-1 gap-4 pt-4">
-          <Card className="flex-1">
-            <CardHeader className="flex justify-between">
-              <div className="div">
-                <CardTitle>Casa Jardim Europa</CardTitle>
-                <CardDescription>Residencial - Rua das Flores, 120</CardDescription>
-              </div>
-              <div>
-                <CardDescription className="bg-green-600/50 p-1 rounded-4xl text-green-300">Alugado</CardDescription>
-              </div>
-            </CardHeader>
-            <CardContent className="flex justify-between">
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">ROE</span>
-                <span className="text-green-400">8,1%</span>
-              </div>
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">Aluguel</span>
-                <span>R$ 1.500,00</span>
-              </div>
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">Val. aprox.</span>
-                <span>R$ 220k</span>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <CardDescription>Inquilino: João Silva</CardDescription>
-            </CardFooter>
-          </Card>
-
-          <Card className="flex-1">
-            <CardHeader className="flex justify-between">
-              <div className="div">
-                <CardTitle>Casa Jardim Europa</CardTitle>
-                <CardDescription>Residencial - Rua das Flores, 120</CardDescription>
-              </div>
-              <div>
-                <CardDescription className="bg-green-600/50 p-1 rounded-4xl text-green-300">Alugado</CardDescription>
-              </div>
-            </CardHeader>
-            <CardContent className="flex justify-between">
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">ROE</span>
-                <span className="text-green-400">8,1%</span>
-              </div>
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">Aluguel</span>
-                <span>R$ 1.500,00</span>
-              </div>
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">Val. aprox.</span>
-                <span>R$ 220k</span>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <CardDescription>Inquilino: João Silva</CardDescription>
-            </CardFooter>
-          </Card>
-
-          <Card className="flex-1">
-            <CardHeader className="flex justify-between">
-              <div className="div">
-                <CardTitle>Casa Jardim Europa</CardTitle>
-                <CardDescription>Residencial - Rua das Flores, 120</CardDescription>
-              </div>
-              <div>
-                <CardDescription className="bg-green-600/50 p-1 rounded-4xl text-green-300">Alugado</CardDescription>
-              </div>
-            </CardHeader>
-            <CardContent className="flex justify-between">
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">ROE</span>
-                <span className="text-green-400">8,1%</span>
-              </div>
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">Aluguel</span>
-                <span>R$ 1.500,00</span>
-              </div>
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">Val. aprox.</span>
-                <span>R$ 220k</span>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <CardDescription>Inquilino: João Silva</CardDescription>
-            </CardFooter>
-          </Card>
-        </div>
-
-        <div className="flex flex-1 gap-4 pt-4">
-          <Card className="flex-1">
-            <CardHeader className="flex justify-between">
-              <div className="div">
-                <CardTitle>Casa Jardim Europa</CardTitle>
-                <CardDescription>Residencial - Rua das Flores, 120</CardDescription>
-              </div>
-              <div>
-                <CardDescription className="bg-green-600/50 p-1 rounded-4xl text-green-300">Alugado</CardDescription>
-              </div>
-            </CardHeader>
-            <CardContent className="flex justify-between">
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">ROE</span>
-                <span className="text-green-400">8,1%</span>
-              </div>
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">Aluguel</span>
-                <span>R$ 1.500,00</span>
-              </div>
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">Val. aprox.</span>
-                <span>R$ 220k</span>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <CardDescription>Inquilino: João Silva</CardDescription>
-            </CardFooter>
-          </Card>
-
-          <Card className="flex-1">
-            <CardHeader className="flex justify-between">
-              <div className="div">
-                <CardTitle>Casa Jardim Europa</CardTitle>
-                <CardDescription>Residencial - Rua das Flores, 120</CardDescription>
-              </div>
-              <div>
-                <CardDescription className="bg-green-600/50 p-1 rounded-4xl text-green-300">Alugado</CardDescription>
-              </div>
-            </CardHeader>
-            <CardContent className="flex justify-between">
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">ROE</span>
-                <span className="text-green-400">8,1%</span>
-              </div>
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">Aluguel</span>
-                <span>R$ 1.500,00</span>
-              </div>
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">Val. aprox.</span>
-                <span>R$ 220k</span>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <CardDescription>Inquilino: João Silva</CardDescription>
-            </CardFooter>
-          </Card>
-
-          <Card className="flex-1">
-            <CardHeader className="flex justify-between">
-              <div className="div">
-                <CardTitle>Casa Jardim Europa</CardTitle>
-                <CardDescription>Residencial - Rua das Flores, 120</CardDescription>
-              </div>
-              <div>
-                <CardDescription className="bg-green-600/50 p-1 rounded-4xl text-green-300">Alugado</CardDescription>
-              </div>
+              <StatusBadge status="vacant"/>
             </CardHeader>
             <CardContent className="flex justify-between">
               <div className="flex flex-col bg-slate-700 p-3 rounded-md">

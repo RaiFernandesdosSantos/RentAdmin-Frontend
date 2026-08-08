@@ -22,7 +22,8 @@ import {
   List,
   LayoutList,
   ArrowLeftRight,
-  ClipboardMinus
+  ClipboardMinus,
+  Settings
 } from "lucide-react"
 
 export function AppSidebar() {
@@ -105,7 +106,7 @@ export function AppSidebar() {
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton tooltip="Extrato">
+              <SidebarMenuButton tooltip="Contas bancárias">
                 <Link href="/finance" className="flex items-center gap-2">
                   <List />
                   <span>Contas bancárias</span>
@@ -127,7 +128,7 @@ export function AppSidebar() {
           <SidebarGroupLabel>Relatórios</SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton tooltip="A receber">
+              <SidebarMenuButton tooltip="DRE">
                 <Link href="/analytics/dre/" className="flex items-center gap-2">
                   <ClipboardMinus />
                   <span>DRE</span>
@@ -135,10 +136,24 @@ export function AppSidebar() {
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton tooltip="A pagar">
+              <SidebarMenuButton tooltip="DFC">
                 <Link href="/analytics/dfc" className="flex items-center gap-2">
                   <ArrowLeftRight />
                   <span>DFC</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Relatórios</SidebarGroupLabel>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton tooltip="Configurações">
+                <Link href="/system/" className="flex items-center gap-2">
+                  <Settings />
+                  <span>Configurações</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

@@ -1,23 +1,12 @@
-'use client'
-
 import AppHeader from "@/components/app-header"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardDescription, CardContent } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { Field, FieldLabel, FieldGroup } from "@/components/ui/field"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Card, CardContent } from "@/components/ui/card"
+import { Field, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { useState } from "react"
-import { ptBR } from "date-fns/locale"
+import { FormSection } from "@/components/form-section"
 
 export default function Page() {
-    const [date, setDate] = useState<Date>()
-
   return (
     <>
       <AppHeader 
@@ -42,10 +31,8 @@ export default function Page() {
         <Card>
           <CardContent>
             <form action="">
-              <CardDescription>DADOS DA CONTA</CardDescription>
-              <Separator />
-                <FieldGroup className="mt-3 grid grid-cols-2 min-w-full">
-                    <Field>
+              <FormSection title="DADOS DA CONTA">
+                <Field>
                         <FieldLabel htmlFor="conta">Nome/apelido</FieldLabel>
                         <Input id="conta" placeholder="Ex: Nubank, Itaú Principal"/>
                     </Field>
@@ -64,7 +51,7 @@ export default function Page() {
                         <FieldLabel htmlFor="conta">Saldo inicial (R$)</FieldLabel>
                         <Input id="conta" placeholder="0,00"/>
                     </Field>
-                </FieldGroup>
+              </FormSection>
             </form>
           </CardContent>
         </Card>
