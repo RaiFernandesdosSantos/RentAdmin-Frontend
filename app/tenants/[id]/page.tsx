@@ -5,6 +5,7 @@ import { SquarePen, Trash2, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
+import { StatusBadge } from "@/components/app-badge"
 
 export default function Page() {
   return (
@@ -45,9 +46,7 @@ export default function Page() {
 
               <div>
                 <span className="font-bold text-3xl">João Silva</span>
-                <div className="w-fit bg-blue-300 p-1 rounded-2xl">
-                  <span className="text-blue-600">Locatário</span>
-                </div>
+                <StatusBadge status="tenant"/>
               </div>
             </CardHeader>
 
@@ -94,9 +93,7 @@ export default function Page() {
                   <span className="text-muted-foreground">R$ 1.500/mês - vence 01/03/2027</span>
                 </div>
                 <div className="w-1/2 flex items-center justify-center">
-                  <div className="w-10 h-10 bg-green-300 flex items-center justify-center rounded-full">
-                    <span className="text-green-600">Ativo</span>
-                  </div>
+                  <StatusBadge status="active"/>
                 </div>
               </div>
 

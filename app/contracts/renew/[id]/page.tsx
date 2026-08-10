@@ -1,5 +1,3 @@
-"use client"
-
 import AppHeader from "@/components/app-header"
 import { Card, CardContent, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -8,19 +6,11 @@ import Link from "next/link"
 import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { Input } from "@/components/ui/input"
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
-
-import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { useState } from "react"
-import { ptBR } from "date-fns/locale"
+import { Field, FieldLabel } from "@/components/ui/field"
+import { DatePickerField } from "@/components/date-picker"
+import { FormSection } from "@/components/form-section"
 
 export default function Page() {
-    const [dateInicio, setDateInicio] = useState<Date>()
-    const [dateFim, setDateFim] = useState<Date>()
-
   return (
     <>
       <AppHeader 
@@ -75,64 +65,21 @@ export default function Page() {
         <div className="w-1/2">
           <Card>
             <CardContent>
-              <CardDescription>NOVO PERÍODO E VALORES</CardDescription>
-              <Separator />
+              <form action="" className="mt-4">
+                <FormSection title="NOVO PERÍODO E VALORES" columns={1}>
+                  <DatePickerField label="Nova data de início" id="inicio"/>
+                  <DatePickerField label="Nova data de vencimento" id="vencimento"/>      
+                  <Field>
+                      <FieldLabel htmlFor="rent">Novo Aluguel (R$)</FieldLabel>
+                      <Input id="rent" placeholder="0,00"/>
+                  </Field>
 
-                <form action="" className="mt-4">
-                    <FieldGroup>
-                        <Field>
-                            <FieldLabel htmlFor="dateInicio">Nova data de início</FieldLabel>
-                            <Popover>
-                                <PopoverTrigger 
-                                    render={
-                                    <Button 
-                                        variant="outline" 
-                                        data-empty={!dateInicio}
-                                        className="justify-start text-left font-normal data-[empty=true]:text-muted-foreground"
-                                    />
-                                    }
-                                >
-                                    <CalendarIcon />
-                                    {dateInicio ? format(dateInicio, "PPP", {locale: ptBR}) : <span>dd/mm/aaaa</span>}
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                    <Calendar mode="single" selected={dateInicio} onSelect={setDateInicio} locale={ptBR}/>
-                                </PopoverContent>
-                            </Popover>
-                        </Field>
-
-                        <Field>
-                            <FieldLabel htmlFor="dateInicio">Nova data de vencimento</FieldLabel>
-                            <Popover>
-                                <PopoverTrigger 
-                                    render={
-                                    <Button 
-                                        variant="outline" 
-                                        data-empty={!dateFim}
-                                        className="justify-start text-left font-normal data-[empty=true]:text-muted-foreground"
-                                    />
-                                    }
-                                >
-                                    <CalendarIcon />
-                                    {dateFim ? format(dateFim, "PPP", {locale: ptBR}) : <span>dd/mm/aaaa</span>}
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                    <Calendar mode="single" selected={dateFim} onSelect={setDateFim} locale={ptBR}/>
-                                </PopoverContent>
-                            </Popover>
-                        </Field>
-                        
-                        <Field>
-                            <FieldLabel htmlFor="rent">Novo Aluguel (R$)</FieldLabel>
-                            <Input id="rent" placeholder="0,00"/>
-                        </Field>
-
-                        <Field>
-                            <FieldLabel htmlFor="caucao">Caução (R$)</FieldLabel>
-                            <Input id="caucao" placeholder="0,00"/>
-                        </Field>
-                    </FieldGroup>
-                </form>
+                  <Field>
+                      <FieldLabel htmlFor="caucao">Caução (R$)</FieldLabel>
+                      <Input id="caucao" placeholder="0,00"/>
+                  </Field>
+                </FormSection>
+              </form>
             </CardContent>
           </Card>
         </div>

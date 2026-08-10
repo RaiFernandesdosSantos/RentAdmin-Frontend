@@ -3,10 +3,11 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { Field, FieldLabel, FieldGroup } from "@/components/ui/field"
+import { Field, FieldLabel } from "@/components/ui/field"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
+import { FormSection } from "@/components/form-section"
 
 export default function Page() {
   return (
@@ -47,10 +48,7 @@ export default function Page() {
                 </div>
               </RadioGroup>
 
-              <CardDescription className="mt-3">DADOS PESSOAIS</CardDescription>
-              <Separator />
-
-              <FieldGroup className="grid min-w-full grid-cols-2 mt-3">
+              <FormSection title="DADOS PESSOAIS" className="mt-3">
                 <Field>
                   <FieldLabel htmlFor="nome">Nome completo</FieldLabel>
                   <Input id="nome" placeholder="Nome completo"/>
@@ -71,12 +69,9 @@ export default function Page() {
                   <FieldLabel htmlFor="renda">Renda mensal (R$)</FieldLabel>
                   <Input id="renda" placeholder="0,00"/>
                 </Field>
-              </FieldGroup>
+              </FormSection>
 
-              <CardDescription className="mt-3">ENDEREÇO</CardDescription>
-              <Separator />
-
-              <FieldGroup className="grid min-w-full grid-cols-2 mt-3">
+              <FormSection title="ENDEREÇO" className="mt-3">
                 <Field>
                   <FieldLabel htmlFor="cep">CEP</FieldLabel>
                   <Input id="cep" placeholder="00.000-000"/>
@@ -93,7 +88,7 @@ export default function Page() {
                   <FieldLabel htmlFor="bairro">Bairro</FieldLabel>
                   <Input id="bairro" placeholder="Bairro"/>
                 </Field>
-              </FieldGroup>
+              </FormSection>
             </form>
           </CardContent>
         </Card>

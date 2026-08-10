@@ -1,5 +1,5 @@
 import AppHeader from "@/components/app-header"
-import { Card, CardHeader, CardContent, CardDescription } from "@/components/ui/card"
+import { Card, CardHeader, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import Link from "next/link"

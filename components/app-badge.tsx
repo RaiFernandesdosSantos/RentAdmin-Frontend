@@ -31,7 +31,7 @@ const statusConfig: Record<Status, { label: string; className: string }> = {
   rented:    { label: "Alugado",       className: "bg-green-700/30 text-green-400" },
   tenant:    { label: "Locatário",     className: "bg-blue-700/30 text-blue-400" },
   guarantor: { label: "Fiador",        className: "bg-purple-700/30 text-purple-400" },
-  sold:      { label: "Vendido",       className: "bg-gray-700/30 text-gray-400" },
+  sold:      { label: "Vendido",       className: "bg-yellow-700/30 text-yellow-400" },
   cancelled: { label: "Cancelado",     className: "bg-red-700/30 text-red-400" },
 }
 

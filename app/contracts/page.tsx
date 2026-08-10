@@ -5,6 +5,7 @@ import { Plus } from "lucide-react"
 import { Eye, RefreshCw } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Link from "next/link"
+import { StatusBadge } from "@/components/app-badge"
 
 export default function Page() {
   return (
@@ -67,9 +68,7 @@ export default function Page() {
                     R$ 3.000,00
                   </TableCell>
                   <TableCell>
-                    <div className="w-fit bg-orange-300 p-1 rounded-3xl">
-                      <span className="text-orange-700">Vence em 22d</span>
-                    </div>
+                    <StatusBadge status="expiring"/>
                   </TableCell>
                   <TableCell className="flex justify-between items-center">
                     <Link href="/contracts/1">
@@ -100,9 +99,7 @@ export default function Page() {
                     R$ 3.000,00
                   </TableCell>
                   <TableCell>
-                    <div className="w-fit bg-orange-300 p-1 rounded-3xl">
-                      <span className="text-orange-700">Vence em 22d</span>
-                    </div>
+                    <StatusBadge status="expiring"/>
                   </TableCell>
                   <TableCell className="flex justify-between items-center">
                     <Button variant="outline">
@@ -154,9 +151,7 @@ export default function Page() {
                     R$ 3.000,00
                   </TableCell>
                   <TableCell>
-                    <div className="w-fit bg-orange-300 p-1 rounded-3xl">
-                      <span className="text-orange-700">Vence em 22d</span>
-                    </div>
+                    <StatusBadge status="expiring"/>
                   </TableCell>
                   <TableCell className="flex justify-between items-center">
                     <Button variant="outline">
@@ -208,9 +203,7 @@ export default function Page() {
                     R$ 3.000,00
                   </TableCell>
                   <TableCell>
-                    <div className="w-fit bg-orange-300 p-1 rounded-3xl">
-                      <span className="text-orange-700">Vence em 22d</span>
-                    </div>
+                    <StatusBadge status="expiring"/>
                   </TableCell>
                   <TableCell className="flex justify-between items-center">
                     <Button variant="outline">
@@ -262,9 +255,7 @@ export default function Page() {
                     R$ 3.000,00
                   </TableCell>
                   <TableCell>
-                    <div className="w-fit bg-orange-300 p-1 rounded-3xl">
-                      <span className="text-orange-700">Vence em 22d</span>
-                    </div>
+                    <StatusBadge status="expiring"/>
                   </TableCell>
                   <TableCell className="flex justify-between items-center">
                     <Button variant="outline">

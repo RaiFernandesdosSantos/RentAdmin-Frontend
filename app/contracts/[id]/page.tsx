@@ -5,6 +5,7 @@ import { SquarePen, ArrowLeft, XIcon, RefreshCw } from "lucide-react"
 import Link from "next/link"
 import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table"
+import { StatusBadge } from "@/components/app-badge"
 
 export default function Page() {
   return (
@@ -88,9 +89,7 @@ export default function Page() {
                   <TableRow>
                     <TableCell>Status: </TableCell>
                     <TableCell className="flex justify-end">
-                        <div className="w-fit bg-yellow-300 p-1 rounded-3xl">
-                            <span className="text-yellow-600">Vence em 22 dias</span>
-                        </div>
+                        <StatusBadge status="expiring"/>                        
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -118,9 +117,7 @@ export default function Page() {
                     <TableCell>Jan/25 </TableCell>
                     <TableCell>R$ 1.500</TableCell>
                     <TableCell>
-                        <div className="w-fit p-1 bg-yellow-300 rounded-3xl">
-                            <span className="text-yellow-600">Pendente</span>
-                        </div>
+                        <StatusBadge status="pending"/>
                     </TableCell>
                   </TableRow>
 
@@ -128,9 +125,7 @@ export default function Page() {
                     <TableCell>Jan/25 </TableCell>
                     <TableCell>R$ 1.500</TableCell>
                     <TableCell>
-                        <div className="w-fit p-1 bg-green-300 rounded-3xl">
-                            <span className="text-grenn-600">Pago</span>
-                        </div>
+                        <StatusBadge status="paid"/>
                     </TableCell>
                   </TableRow>
 
@@ -138,9 +133,7 @@ export default function Page() {
                     <TableCell>Jan/25 </TableCell>
                     <TableCell>R$ 1.500</TableCell>
                     <TableCell>
-                        <div className="w-fit p-1 bg-green-300 rounded-3xl">
-                            <span className="text-grenn-600">Pago</span>
-                        </div>
+                        <StatusBadge status="paid"/>
                     </TableCell>
                   </TableRow>
                 </TableBody>

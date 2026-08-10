@@ -1,11 +1,8 @@
-"use client"
-
 import AppHeader from "@/components/app-header"
-import { Card, CardHeader, CardDescription, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Separator } from "@/components/ui/separator"
-import { FieldGroup, Field, FieldLabel  } from "@/components/ui/field"
+import { Field, FieldLabel  } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { 
   Select,
@@ -14,18 +11,11 @@ import {
   SelectTrigger,
   SelectValue, 
 } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { useState } from "react"
-import { ptBR } from "date-fns/locale"
+import { DatePickerField } from "@/components/date-picker"
+import { FormSection } from "@/components/form-section"
 
 
 export default function Page() {
-    const [date, setDate] = useState<Date>()
-
   return (
     <>
       <AppHeader 
@@ -47,17 +37,10 @@ export default function Page() {
       />
 
       <div className="min-h-svh p-4">
-        <Card className="flex-1 p-3 gap-0">
-            <CardHeader>
-                <CardDescription>
-                    INFORMAÇÕES BÁSICAS
-                    <Separator />
-                </CardDescription>
-            </CardHeader>
-            
+        <Card className="flex-1 p-3">
             <CardContent>
                 <form>
-                    <FieldGroup className="grid min-w-full grid-cols-2 pt-4">
+                    <FormSection title="INFORMAÇÕES BÁSICAS">
                         <Field>
                             <FieldLabel htmlFor="description">Nome/identificação</FieldLabel>
                             <Input id="description" placeholder="Ex: Casa Jardim Europa"/>
@@ -98,49 +81,19 @@ export default function Page() {
                             <FieldLabel htmlFor="area">IPTU anual (R$)</FieldLabel>
                             <Input id="area" placeholder="0,00"/>
                         </Field>
-                    </FieldGroup>
+                    </FormSection>
                 
-
-                    <CardDescription className="pt-4">VALORES FINANCEIROS</CardDescription>
-                    <Separator />
-                    
-                    <FieldGroup className="grid min-w-full grid-cols-3 pt-4">
+                    <FormSection title="VALORES FINANCEIROS" className="mt-3" columns={3}>
                         <Field>
                             <FieldLabel htmlFor="value">Valor de compra (R$)</FieldLabel>
                             <Input id="value" placeholder="0,00"/>
                         </Field>
-                        <Field>
-                            <FieldLabel htmlFor="description">Data de Aquisição</FieldLabel>
-                            <Popover>
-                                <PopoverTrigger 
-                                    render={
-                                    <Button 
-                                        variant="outline" 
-                                        data-empty={!date}
-                                        className="justify-start text-left font-normal data-[empty=true]:text-muted-foreground"
-                                    />
-                                    }
-                                >
-                                    <CalendarIcon />
-                                    {date ? format(date, "PPP", {locale: ptBR}) : <span>dd/mm/aaaa</span>}
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                    <Calendar mode="single" selected={date} onSelect={setDate} locale={ptBR}/>
-                                </PopoverContent>
-                            </Popover>
-                        </Field>
+                        <DatePickerField label="Data de aquisicação" id="aquisicao"/>
                         <Field>
                             <FieldLabel htmlFor="newValue">Valor atual estimado (R$)</FieldLabel>
                             <Input id="newValue" placeholder="0,00"/>
                         </Field>
-                    </FieldGroup>
-                    
-                    <FieldGroup className="pt-3">
-                        <Field>
-                            <FieldLabel htmlFor="obs">Observações</FieldLabel>
-                            <Textarea placeholder="Informações adicionais sobre o imóvel"/>
-                        </Field>
-                    </FieldGroup>
+                    </FormSection>
                 </form>
             </CardContent>
         </Card>

@@ -1,5 +1,5 @@
 import AppHeader from "@/components/app-header"
-import { Card, CardHeader, CardContent, CardDescription } from "@/components/ui/card"
+import { Card, CardHeader, CardContent } from "@/components/ui/card"
 import { Table, TableHeader, TableHead, TableCell, TableBody, TableRow } from "@/components/ui/table"
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select"
 import Link from "next/link"

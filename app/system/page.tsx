@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Separator } from "@/components/ui/separator"
-import { Field, FieldGroup, FieldLabel, FieldContent, FieldDescription } from "@/components/ui/field"
+import { Field, FieldLabel, FieldContent, FieldDescription } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
+import { SettingRow } from "@/components/setting-row"
+import { FormSection } from "@/components/form-section"
 
 
 export default function Page() {
@@ -42,10 +44,7 @@ export default function Page() {
                 <Card className="flex-1">
                     <CardContent>
                         <form action="">
-                            <CardDescription>DADOS DO PROPRIETÁRIO</CardDescription>
-                            <Separator />
-
-                            <FieldGroup className="mt-3 grid grid-cols-2 min-w-full">
+                            <FormSection title="DADOS DO PROPRIETÁRIO">
                                 <Field>
                                     <FieldLabel htmlFor="rent">Nome completo</FieldLabel>
                                     <Input id="rent" placeholder="Rai Santos"/>
@@ -65,7 +64,7 @@ export default function Page() {
                                     <FieldLabel htmlFor="rent">E-mail</FieldLabel>
                                     <Input id="rent" placeholder="email@exemplo.com"/>
                                 </Field>
-                            </FieldGroup>
+                            </FormSection>
                         </form>
                     </CardContent>
                 </Card>
@@ -77,12 +76,7 @@ export default function Page() {
                             <Separator />
 
                             <div className="mt-3 min-w-full">
-                                <div className="flex justify-between mb-3">
-                                    <div className="flex flex-col">
-                                        <span>Moeda</span>
-                                        <span>Moeda usada em todos os relatórios</span>
-                                    </div>
-
+                                <SettingRow label="Moeda" description="Moeda usada em todos os relatórios" className="pt-0">
                                     <Select id="guarantor">
                                         <SelectTrigger className="w-32">
                                             <SelectValue placeholder="R$ (BRL)" />
@@ -91,16 +85,9 @@ export default function Page() {
                                             <SelectItem value="1">US$ (USD)</SelectItem>
                                         </SelectContent>
                                     </Select>
-                                </div>
+                                </SettingRow>
 
-                                <Separator />
-
-                                <div className="flex justify-between mt-3 mb-3">
-                                    <div className="flex flex-col">
-                                        <span>Formato de data</span>
-                                        <span>Como as datas são exibidas no sistema</span>
-                                    </div>
-
+                                <SettingRow label="Formato de data" description="Como as datas são exibidas no sistema">
                                     <Select id="guarantor">
                                         <SelectTrigger className="w-32">
                                             <SelectValue placeholder="DD/MM/AAAA" />
@@ -109,16 +96,9 @@ export default function Page() {
                                             <SelectItem value="1">MM/DD/AAAA</SelectItem>
                                         </SelectContent>
                                     </Select>
-                                </div>
+                                </SettingRow>
 
-                                <Separator />
-
-                                <div className="flex justify-between mt-3">
-                                    <div className="flex flex-col">
-                                        <span>Ano fiscal</span>
-                                        <span>Mês de início do exercício financeiro</span>
-                                    </div>
-
+                                <SettingRow label="Ano fiscal" description="Mês de início do exercício financeiro" showSeparator={false}>
                                     <Select id="guarantor">
                                         <SelectTrigger className="w-32">
                                             <SelectValue placeholder="Janeiro" />
@@ -127,7 +107,7 @@ export default function Page() {
                                             <SelectItem value="1">Junho</SelectItem>
                                         </SelectContent>
                                     </Select>
-                                </div>
+                                </SettingRow>
                             </div>
                         </form>
                     </CardContent>
@@ -142,32 +122,20 @@ export default function Page() {
                             <Separator />
 
                             <div className="mt-3 min-w-full">
-                                <div className="flex justify-between mb-3">
-                                    <div className="flex flex-col">
-                                        <span>Índice de reajuste padrão</span>
-                                        <span>Usado como sugestão na renovação de contratos</span>
-                                    </div>
-
+                                <SettingRow label="Índice de reajuste padrão" description="Usado como sugestão na renovação de contratos">
                                     <Select id="guarantor">
-                                        <SelectTrigger className="w-32">
-                                            <SelectValue placeholder="IGPM" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="1">IPCA</SelectItem>
-                                            <SelectItem value="1">INPC</SelectItem>
-                                            <SelectItem value="1">Manual</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
+                                            <SelectTrigger className="w-32">
+                                                <SelectValue placeholder="IGPM" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="1">IPCA</SelectItem>
+                                                <SelectItem value="1">INPC</SelectItem>
+                                                <SelectItem value="1">Manual</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                </SettingRow>
 
-                                <Separator />
-
-                                <div className="flex justify-between mt-3 mb-3">
-                                    <div className="flex flex-col">
-                                        <span>Alerta de vencimento de contrato</span>
-                                        <span>Quantos dias antes avisar no dashboard</span>
-                                    </div>
-
+                                <SettingRow label="Alerta de vencimento de contrato" description="Quantos dias antes aviisar no dashboard">
                                     <Select id="guarantor">
                                         <SelectTrigger className="w-32">
                                             <SelectValue placeholder="90 dias" />
@@ -177,29 +145,15 @@ export default function Page() {
                                             <SelectItem value="1">30 dias</SelectItem>
                                         </SelectContent>
                                     </Select>
-                                </div>
+                                </SettingRow>
 
-                                <Separator />
-
-                                <div className="flex justify-between mt-3 mb-3">
-                                    <div className="flex flex-col">
-                                        <span>Multa por atraso padrão (%)</span>
-                                        <span>Percentual aplicado em cobrança em atraso</span>
-                                    </div>
-
+                                <SettingRow label="Multa por atraso padrão (%)" description="Percentual aplicado em cobrança em atraso">
                                     <Input id="rent" className="w-32" placeholder="2"/>
-                                </div>
+                                </SettingRow>
 
-                                <Separator />
-
-                                <div className="flex justify-between mt-3 mb-3">
-                                    <div className="flex flex-col">
-                                        <span>Juros de mora padrão (% a.m.)</span>
-                                        <span>Juros aplicados após vencimento</span>
-                                    </div>
-
+                                <SettingRow label="Juros de mora padrão (% a.m.)" description="Juros aplicados após vencimento" showSeparator={false}>
                                     <Input id="rent" className="w-32" placeholder="1"/>
-                                </div>
+                                </SettingRow>
                             </div>
                         </form>
                     </CardContent>
@@ -212,12 +166,7 @@ export default function Page() {
                             <Separator />
 
                             <div className="mt-3 min-w-full">
-                                <div className="flex justify-between mb-3">
-                                    <div className="flex flex-col">
-                                        <span>Moeda</span>
-                                        <span>Moeda usada em todos os relatórios</span>
-                                    </div>
-
+                                <SettingRow label="Conta para novos lançamentos" description="Pré-selecionada ao criar receitas e despesas" showSeparator={false}>
                                     <Select id="guarantor">
                                         <SelectTrigger className="w-32">
                                             <SelectValue placeholder="Nubank - .....1234" />
@@ -226,7 +175,7 @@ export default function Page() {
                                             <SelectItem value="1">Itaú - .....4567</SelectItem>
                                         </SelectContent>
                                     </Select>
-                                </div>
+                                </SettingRow>
                             </div>
                         </form>
                     </CardContent>

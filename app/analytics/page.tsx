@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button"
 import {Download} from "lucide-react"
 import { MetricCard } from "@/components/metric-card"
+import { Badge } from "@/components/ui/badge"
 
 export default function Page() {
   return (

@@ -1,10 +1,79 @@
 import AppHeader from "@/components/app-header"
-import { Card, CardHeader, CardTitle, CardDescription, CardFooter, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import Link from "next/link"
-import { StatusBadge } from "@/components/app-badge"
 import { PropertyCard } from "@/components/property-card"
+
+const properties = [
+  {
+    id: 1,
+    name: "Casa Jardim Europa",
+    description: "Residencial - Rua das Flores, 120",
+    status: "rented",
+    stats: [{
+      label: "ROE",
+      value: "8,10%",
+      highlight: true
+    },
+    {
+      label: "Aluguel",
+      value: "R$ 1.500",
+      highlight: false
+    },
+    {
+      label: "Val. aprox.",
+      value: "R$ 220k",
+      highlight: false
+    }],
+    tenant: "João Silva"
+  },
+
+  {
+    id: 2,
+    name: "Casa Jardim Europa",
+    description: "Residencial - Rua das Flores, 120",
+    status: "vacant",
+    stats: [{
+      label: "ROE",
+      value: "8,10%",
+      highlight: true
+    },
+    {
+      label: "Aluguel",
+      value: "R$ 1.500",
+      highlight: false
+    },
+    {
+      label: "Val. aprox.",
+      value: "R$ 220k",
+      highlight: false
+    }],
+    tenant: "João Silva"
+  },
+
+  {
+    id: 3,
+    name: "Casa Jardim Europa",
+    description: "Residencial - Rua das Flores, 120",
+    status: "sold",
+    stats: [{
+      label: "ROE",
+      value: "8,10%",
+      highlight: true
+    },
+    {
+      label: "Aluguel",
+      value: "R$ 1.500",
+      highlight: false
+    },
+    {
+      label: "Val. aprox.",
+      value: "R$ 220k",
+      highlight: false
+    }],
+    tenant: "João Silva"
+  },
+]
 
 export default function Page() {
   return (
@@ -24,88 +93,17 @@ export default function Page() {
 
       <div className="min-h-svh p-4">
         <div className="flex flex-1 gap-4">
-          <Link href="/properties/1" className="flex-1">
-            <Card>
-              <CardHeader className="flex justify-between">
-                <div className="div">
-                  <CardTitle>Casa Jardim Europa</CardTitle>
-                  <CardDescription>Residencial - Rua das Flores, 120</CardDescription>
-                </div>
-                <StatusBadge status="rented"/>
-              </CardHeader>
-              <CardContent className="flex justify-between">
-                <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                  <span className="text-muted-foreground">ROE</span>
-                  <span className="text-green-400">8,1%</span>
-                </div>
-                <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                  <span className="text-muted-foreground">Aluguel</span>
-                  <span>R$ 1.500,00</span>
-                </div>
-                <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                  <span className="text-muted-foreground">Val. aprox.</span>
-                  <span>R$ 220k</span>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <CardDescription>Inquilino: João Silva</CardDescription>
-              </CardFooter>
-            </Card>
-          </Link>
-
-          <Card className="flex-1">
-            <CardHeader className="flex justify-between">
-              <div className="div">
-                <CardTitle>Casa Jardim Europa</CardTitle>
-                <CardDescription>Residencial - Rua das Flores, 120</CardDescription>
-              </div>
-              <StatusBadge status="rented"/>
-            </CardHeader>
-            <CardContent className="flex justify-between">
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">ROE</span>
-                <span className="text-green-400">8,1%</span>
-              </div>
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">Aluguel</span>
-                <span>R$ 1.500,00</span>
-              </div>
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">Val. aprox.</span>
-                <span>R$ 220k</span>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <CardDescription>Inquilino: João Silva</CardDescription>
-            </CardFooter>
-          </Card>
-
-          <Card className="flex-1">
-            <CardHeader className="flex justify-between">
-              <div className="div">
-                <CardTitle>Casa Jardim Europa</CardTitle>
-                <CardDescription>Residencial - Rua das Flores, 120</CardDescription>
-              </div>
-              <StatusBadge status="vacant"/>
-            </CardHeader>
-            <CardContent className="flex justify-between">
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">ROE</span>
-                <span className="text-green-400">8,1%</span>
-              </div>
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">Aluguel</span>
-                <span>R$ 1.500,00</span>
-              </div>
-              <div className="flex flex-col bg-slate-700 p-3 rounded-md">
-                <span className="text-muted-foreground">Val. aprox.</span>
-                <span>R$ 220k</span>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <CardDescription>Inquilino: João Silva</CardDescription>
-            </CardFooter>
-          </Card>
+        {properties.map((pro) =>
+          <PropertyCard 
+            key={pro.id}
+            id={pro.id}
+            name={pro.name}
+            description={pro.description}
+            status={pro.status}
+            stats={pro.stats}
+            tenant={pro.tenant}
+          />
+        )}
         </div>
       </div>
     </>

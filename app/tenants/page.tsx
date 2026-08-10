@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import { Eye, SquarePen } from "lucide-react"
 import Link from "next/link"
+import { StatusBadge } from "@/components/app-badge"
 
 export default function Page() {
   return (
@@ -54,14 +55,10 @@ export default function Page() {
                 (67) 9 9999-9999
               </TableCell>
               <TableCell>
-                <div className="bg-blue-300 w-fit p-2 rounded-3xl">
-                  <span className="text-blue-600">Locatário</span>
-                </div>
+                <StatusBadge status="tenant"/>
               </TableCell>
               <TableCell>
-                <div className="bg-green-300 w-fit p-2 rounded-3xl">
-                  <span className="text-green-600">Ativo</span>
-                </div>
+                <StatusBadge status="active"/>
               </TableCell>
               <TableCell className="flex justify-between">
                 <Link href="/tenants/1">
@@ -92,14 +89,10 @@ export default function Page() {
                 (67) 9 9999-9999
               </TableCell>
               <TableCell>
-                <div className="bg-blue-300 w-fit p-2 rounded-3xl">
-                  <span className="text-blue-600">Locatário</span>
-                </div>
+                <StatusBadge status="tenant"/>
               </TableCell>
               <TableCell>
-                <div className="bg-green-300 w-fit p-2 rounded-3xl">
-                  <span className="text-green-600">Ativo</span>
-                </div>
+                <StatusBadge status="active"/>
               </TableCell>
               <TableCell className="flex justify-between">
                 <Link href="/tenants/1">
@@ -130,14 +123,10 @@ export default function Page() {
                 (67) 9 9999-9999
               </TableCell>
               <TableCell>
-                <div className="bg-blue-300 w-fit p-2 rounded-3xl">
-                  <span className="text-blue-600">Locatário</span>
-                </div>
+                <StatusBadge status="tenant"/>
               </TableCell>
               <TableCell>
-                <div className="bg-green-300 w-fit p-2 rounded-3xl">
-                  <span className="text-green-600">Ativo</span>
-                </div>
+                <StatusBadge status="active"/>
               </TableCell>
               <TableCell className="flex justify-between">
                 <Link href="/tenants/1">
@@ -168,14 +157,10 @@ export default function Page() {
                 (67) 9 9999-9999
               </TableCell>
               <TableCell>
-                <div className="bg-blue-300 w-fit p-2 rounded-3xl">
-                  <span className="text-blue-600">Locatário</span>
-                </div>
+                <StatusBadge status="tenant"/>
               </TableCell>
               <TableCell>
-                <div className="bg-green-300 w-fit p-2 rounded-3xl">
-                  <span className="text-green-600">Ativo</span>
-                </div>
+                <StatusBadge status="active"/>
               </TableCell>
               <TableCell className="flex justify-between">
                 <Link href="/tenants/1">
@@ -206,14 +191,10 @@ export default function Page() {
                 (67) 9 9999-9999
               </TableCell>
               <TableCell>
-                <div className="bg-blue-300 w-fit p-2 rounded-3xl">
-                  <span className="text-blue-600">Locatário</span>
-                </div>
+                <StatusBadge status="tenant"/>
               </TableCell>
               <TableCell>
-                <div className="bg-green-300 w-fit p-2 rounded-3xl">
-                  <span className="text-green-600">Ativo</span>
-                </div>
+                <StatusBadge status="active"/>
               </TableCell>
               <TableCell className="flex justify-between">
                 <Link href="/tenants/1">
@@ -244,14 +225,10 @@ export default function Page() {
                 (67) 9 9999-9999
               </TableCell>
               <TableCell>
-                <div className="bg-blue-300 w-fit p-2 rounded-3xl">
-                  <span className="text-blue-600">Locatário</span>
-                </div>
+                <StatusBadge status="tenant"/>
               </TableCell>
               <TableCell>
-                <div className="bg-green-300 w-fit p-2 rounded-3xl">
-                  <span className="text-green-600">Ativo</span>
-                </div>
+                <StatusBadge status="active"/>
               </TableCell>
               <TableCell className="flex justify-between">
                 <Link href="/tenants/1">
