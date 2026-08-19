@@ -122,19 +122,6 @@ export default function Page() {
                             <Separator />
 
                             <div className="mt-3 min-w-full">
-                                <SettingRow label="Índice de reajuste padrão" description="Usado como sugestão na renovação de contratos">
-                                    <Select id="guarantor">
-                                            <SelectTrigger className="w-32">
-                                                <SelectValue placeholder="IGPM" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="1">IPCA</SelectItem>
-                                                <SelectItem value="1">INPC</SelectItem>
-                                                <SelectItem value="1">Manual</SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                </SettingRow>
-
                                 <SettingRow label="Alerta de vencimento de contrato" description="Quantos dias antes aviisar no dashboard">
                                     <Select id="guarantor">
                                         <SelectTrigger className="w-32">
