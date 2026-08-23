@@ -1,15 +1,26 @@
 import AppHeader from "@/components/app-header"
-import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/table"
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell,
+} from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import { Eye, SquarePen } from "lucide-react"
 import Link from "next/link"
 import { StatusBadge } from "@/components/app-badge"
+import { TenantService } from "@/src/services/tenants"
+import { Tenant } from "@/src/types/tenant"
 
-export default function Page() {
+export default async function Page() {
+  const tenants = await TenantService.list()
+
   return (
     <>
-      <AppHeader 
+      <AppHeader
         title="Inquilinos"
         subtitle="Cadastro de locatários e fiadores"
         actions={
@@ -26,224 +37,48 @@ export default function Page() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>
-                Nome
-              </TableHead>
-              <TableHead>
-                Contato
-              </TableHead>
-              <TableHead>
-                Tipo
-              </TableHead>
-              <TableHead>
-                Status
-              </TableHead>
+              <TableHead>Nome</TableHead>
+              <TableHead>Contato</TableHead>
+              <TableHead>Tipo</TableHead>
+              <TableHead>Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableCell className="flex gap-4 w-fit items-center">
-                <div className="bg-blue-300 rounded-3xl h-fit w-fit p-3">
-                  <span className="text-blue-600 font-bold">JS</span>
-                </div>
-                <div className="flex flex-col">
-                  <span>João Silva</span>
-                  <span className="text-muted-foreground">CPF: 056.456.789-89</span>
-                </div>
-              </TableCell>
-              <TableCell>
-                (67) 9 9999-9999
-              </TableCell>
-              <TableCell>
-                <StatusBadge status="tenant"/>
-              </TableCell>
-              <TableCell>
-                <StatusBadge status="active"/>
-              </TableCell>
-              <TableCell className="flex justify-between">
-                <Link href="/tenants/1">
-                  <Button variant="outline" size="sm">
-                    <Eye className="h-4 w-4"/>                
-                  </Button>
-                </Link>
+            {tenants.map((tenant: Tenant) => (
+              <TableRow key={tenant.id}>
+                <TableCell className="flex w-fit items-center gap-4">
+                  <div className="h-fit w-fit rounded-3xl bg-blue-300 p-3">
+                    <span className="font-bold text-blue-600">JS</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span>{tenant.name}</span>
+                    <span className="text-muted-foreground">
+                      CPF: {tenant.cpf}
+                    </span>
+                  </div>
+                </TableCell>
+                <TableCell>{tenant.phone_number}</TableCell>
+                <TableCell>
+                  <StatusBadge status="tenant" />
+                </TableCell>
+                <TableCell>
+                  <StatusBadge status="active" />
+                </TableCell>
+                <TableCell className="flex justify-between">
+                  <Link href={`/tenants/${tenant.id}`}>
+                    <Button variant="outline" size="sm">
+                      <Eye className="h-4 w-4" />
+                    </Button>
+                  </Link>
 
-                <Link href="/tenants/edit/1">
-                  <Button variant="outline" size="sm">
-                    <SquarePen className="h-4 w-4"/>
-                  </Button>
-                </Link>
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell className="flex gap-4 w-fit items-center">
-                <div className="bg-blue-300 rounded-3xl h-fit w-fit p-3">
-                  <span className="text-blue-600 font-bold">JS</span>
-                </div>
-                <div className="flex flex-col">
-                  <span>João Silva</span>
-                  <span className="text-muted-foreground">CPF: 056.456.789-89</span>
-                </div>
-              </TableCell>
-              <TableCell>
-                (67) 9 9999-9999
-              </TableCell>
-              <TableCell>
-                <StatusBadge status="tenant"/>
-              </TableCell>
-              <TableCell>
-                <StatusBadge status="active"/>
-              </TableCell>
-              <TableCell className="flex justify-between">
-                <Link href="/tenants/1">
-                  <Button variant="outline" size="sm">
-                    <Eye className="h-4 w-4"/>                
-                  </Button>
-                </Link>
-
-                <Link href="/tenants/edit/1">
-                  <Button variant="outline" size="sm">
-                    <SquarePen className="h-4 w-4"/>
-                  </Button>
-                </Link>
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell className="flex gap-4 w-fit items-center">
-                <div className="bg-blue-300 rounded-3xl h-fit w-fit p-3">
-                  <span className="text-blue-600 font-bold">JS</span>
-                </div>
-                <div className="flex flex-col">
-                  <span>João Silva</span>
-                  <span className="text-muted-foreground">CPF: 056.456.789-89</span>
-                </div>
-              </TableCell>
-              <TableCell>
-                (67) 9 9999-9999
-              </TableCell>
-              <TableCell>
-                <StatusBadge status="tenant"/>
-              </TableCell>
-              <TableCell>
-                <StatusBadge status="active"/>
-              </TableCell>
-              <TableCell className="flex justify-between">
-                <Link href="/tenants/1">
-                  <Button variant="outline" size="sm">
-                    <Eye className="h-4 w-4"/>                
-                  </Button>
-                </Link>
-
-                <Link href="/tenants/edit/1">
-                  <Button variant="outline" size="sm">
-                    <SquarePen className="h-4 w-4"/>
-                  </Button>
-                </Link>
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell className="flex gap-4 w-fit items-center">
-                <div className="bg-blue-300 rounded-3xl h-fit w-fit p-3">
-                  <span className="text-blue-600 font-bold">JS</span>
-                </div>
-                <div className="flex flex-col">
-                  <span>João Silva</span>
-                  <span className="text-muted-foreground">CPF: 056.456.789-89</span>
-                </div>
-              </TableCell>
-              <TableCell>
-                (67) 9 9999-9999
-              </TableCell>
-              <TableCell>
-                <StatusBadge status="tenant"/>
-              </TableCell>
-              <TableCell>
-                <StatusBadge status="active"/>
-              </TableCell>
-              <TableCell className="flex justify-between">
-                <Link href="/tenants/1">
-                  <Button variant="outline" size="sm">
-                    <Eye className="h-4 w-4"/>                
-                  </Button>
-                </Link>
-
-                <Link href="/tenants/edit/1">
-                  <Button variant="outline" size="sm">
-                    <SquarePen className="h-4 w-4"/>
-                  </Button>
-                </Link>
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell className="flex gap-4 w-fit items-center">
-                <div className="bg-blue-300 rounded-3xl h-fit w-fit p-3">
-                  <span className="text-blue-600 font-bold">JS</span>
-                </div>
-                <div className="flex flex-col">
-                  <span>João Silva</span>
-                  <span className="text-muted-foreground">CPF: 056.456.789-89</span>
-                </div>
-              </TableCell>
-              <TableCell>
-                (67) 9 9999-9999
-              </TableCell>
-              <TableCell>
-                <StatusBadge status="tenant"/>
-              </TableCell>
-              <TableCell>
-                <StatusBadge status="active"/>
-              </TableCell>
-              <TableCell className="flex justify-between">
-                <Link href="/tenants/1">
-                  <Button variant="outline" size="sm">
-                    <Eye className="h-4 w-4"/>                
-                  </Button>
-                </Link>
-
-                <Link href="/tenants/edit/1">
-                  <Button variant="outline" size="sm">
-                    <SquarePen className="h-4 w-4"/>
-                  </Button>
-                </Link>
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell className="flex gap-4 w-fit items-center">
-                <div className="bg-blue-300 rounded-3xl h-fit w-fit p-3">
-                  <span className="text-blue-600 font-bold">JS</span>
-                </div>
-                <div className="flex flex-col">
-                  <span>João Silva</span>
-                  <span className="text-muted-foreground">CPF: 056.456.789-89</span>
-                </div>
-              </TableCell>
-              <TableCell>
-                (67) 9 9999-9999
-              </TableCell>
-              <TableCell>
-                <StatusBadge status="tenant"/>
-              </TableCell>
-              <TableCell>
-                <StatusBadge status="active"/>
-              </TableCell>
-              <TableCell className="flex justify-between">
-                <Link href="/tenants/1">
-                  <Button variant="outline" size="sm">
-                    <Eye className="h-4 w-4"/>                
-                  </Button>
-                </Link>
-
-                <Link href="/tenants/edit/1">
-                  <Button variant="outline" size="sm">
-                    <SquarePen className="h-4 w-4"/>
-                  </Button>
-                </Link>
-              </TableCell>
-            </TableRow>
+                  <Link href="/tenants/edit/1">
+                    <Button variant="outline" size="sm">
+                      <SquarePen className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </div>

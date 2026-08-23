@@ -58,10 +58,7 @@ export default function Page() {
     },
   })
 
-  console.log("erros de validação:", form.formState.errors)
-
   async function onSubmit(data: PropertyFormData) {
-    console.log("onSubmit chamado com:", data)
     try {
       await PropertyService.create(data)
       router.push("/properties/")
@@ -85,11 +82,7 @@ export default function Page() {
               type="button"
               variant="outline"
               size="sm"
-              onClick={() => {
-                console.log("botão clicado")
-                console.log("valores atuais do form:", form.getValues())
-                form.handleSubmit(onSubmit)()
-              }}
+              onClick={form.handleSubmit(onSubmit)}
             >
               Salvar
             </Button>

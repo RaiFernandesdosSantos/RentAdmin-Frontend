@@ -48,11 +48,20 @@ export default async function Page() {
             <PropertyCard
               key={property.id}
               id={property.id}
-              name={property.description}
-              description={property.street}
-              status="rented"
+              description={property.description}
+              status={
+                property.status === 0
+                  ? "vacant"
+                  : property.status === 1
+                    ? "rented"
+                    : property.status === 2
+                      ? "vacant"
+                      : "sold"
+              }
               stats={stats}
-              tenant=""
+              street={property.street}
+              number={property.number}
+              neighboorhood={property.neighborhood}
             />
           ))}
         </div>
