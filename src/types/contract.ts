@@ -1,4 +1,5 @@
 import { Property } from "./property"
+import { Tenant } from "./tenant"
 
 export interface Contract {
   id: number
@@ -10,7 +11,7 @@ export interface Contract {
   due_day: number
   start_date: string
   end_date: string
-  status: 'ACTIVE' | 'EXPIRING' | 'EXPIRED' | 'CANCELLED' | 'RENEWED'
+  status: "ACTIVE" | "EXPIRING" | "EXPIRED" | "CANCELLED" | "RENEWED"
   created_at: string
   updated_at: string
 }

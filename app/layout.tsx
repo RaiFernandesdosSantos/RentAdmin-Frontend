@@ -1,12 +1,12 @@
 import { Geist_Mono, Roboto } from "next/font/google"
 
-import "@/src/css/globals.css"
+import "@/public/css/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
-import { AppSidebar } from "@/components/app-sidebar";
-import {SidebarProvider} from "@/components/ui/sidebar"
+import { cn } from "@/lib/utils"
+import { AppSidebar } from "@/components/app-sidebar"
+import { SidebarProvider } from "@/components/ui/sidebar"
 
-const roboto = Roboto({subsets:['latin'],variable:'--font-sans'})
+const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" })
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -22,13 +22,18 @@ export default function RootLayout({
     <html
       lang="pt-br"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", roboto.variable)}
+      className={cn(
+        "antialiased",
+        fontMono.variable,
+        "font-sans",
+        roboto.variable
+      )}
     >
       <body>
         <ThemeProvider>
           <SidebarProvider>
             <AppSidebar />
-            <main className="flex min-h-screen flex-col flex-1">
+            <main className="flex min-h-screen flex-1 flex-col">
               {children}
             </main>
           </SidebarProvider>

@@ -6,17 +6,27 @@ import { ptBR } from "date-fns/locale"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 import { Field, FieldLabel } from "@/components/ui/field"
 
 interface DatePickerFieldProps {
   label: string
   id?: string
   value?: Date
+  name?: string
   onChange?: (date?: Date) => void
 }
 
-export function DatePickerField({ label, id, value, onChange }: DatePickerFieldProps) {
+export function DatePickerField({
+  label,
+  id,
+  value,
+  onChange,
+}: DatePickerFieldProps) {
   const [internalDate, setInternalDate] = useState<Date | undefined>(value)
 
   const date = value ?? internalDate
@@ -34,15 +44,24 @@ export function DatePickerField({ label, id, value, onChange }: DatePickerFieldP
             <Button
               variant="outline"
               data-empty={!date}
-              className="justify-start text-left font-normal data-[empty=true]:text-muted-foreground w-full"
+              className="w-full justify-start text-left font-normal data-[empty=true]:text-muted-foreground"
             />
           }
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP", { locale: ptBR }) : <span>dd/mm/aaaa</span>}
+          {date ? (
+            format(date, "PPP", { locale: ptBR })
+          ) : (
+            <span>dd/mm/aaaa</span>
+          )}
         </PopoverTrigger>
         <PopoverContent>
-          <Calendar mode="single" selected={date} onSelect={handleSelect} locale={ptBR} />
+          <Calendar
+            mode="single"
+            selected={date}
+            onSelect={handleSelect}
+            locale={ptBR}
+          />
         </PopoverContent>
       </Popover>
     </Field>

@@ -4,13 +4,29 @@ import { Button } from "@/components/ui/button"
 import { SquarePen, ArrowLeft, XIcon, RefreshCw } from "lucide-react"
 import Link from "next/link"
 import { Separator } from "@/components/ui/separator"
-import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  TableHeader,
+  TableHead,
+} from "@/components/ui/table"
 import { StatusBadge } from "@/components/app-badge"
+import { Contract } from "@/src/types/contract"
+import { contractsService } from "@/src/services/contracts"
 
-export default function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: number }>
+}) {
+  const { id } = await params
+  const contract = await contractsService.get(id)
+
   return (
     <>
-      <AppHeader 
+      <AppHeader
         title="Contrato - Casa Jardim Europa"
         subtitle="João Silva - Ativo"
         actions={
@@ -23,15 +39,15 @@ export default function Page() {
             </Link>
 
             <Button variant="outline" size="sm">
-                <RefreshCw className="h-4 w-4"/>
-                Renovar
+              <RefreshCw className="h-4 w-4" />
+              Renovar
             </Button>
 
             <Link href="/contracts/edit/1">
-                <Button variant="outline" size="sm">
-                    <SquarePen className="h-4 w-4" />
-                    Editar
-                </Button>
+              <Button variant="outline" size="sm">
+                <SquarePen className="h-4 w-4" />
+                Editar
+              </Button>
             </Link>
 
             <Button variant="outline" size="sm">
@@ -42,7 +58,7 @@ export default function Page() {
         }
       />
 
-      <div className="min-h-svh p-4 flex gap-5">
+      <div className="flex min-h-svh gap-5 p-4">
         <div className="w-1/2">
           <Card>
             <CardContent>
@@ -53,43 +69,64 @@ export default function Page() {
                 <TableBody>
                   <TableRow>
                     <TableCell>Imóvel: </TableCell>
-                    <TableCell className="text-right">Casa Jardim Europa</TableCell>
+                    <TableCell className="text-right">
+                      {contract.property.description}
+                    </TableCell>
                   </TableRow>
 
                   <TableRow>
                     <TableCell>Inquilino: </TableCell>
-                    <TableCell className="text-right">João Silva</TableCell>
+                    <TableCell className="text-right">
+                      {contract.tenant.name}
+                    </TableCell>
                   </TableRow>
 
                   <TableRow>
                     <TableCell>Fiador: </TableCell>
-                    <TableCell className="text-right">Pedro Lima</TableCell>
+                    <TableCell className="text-right">
+                      {contract.guarantor?.name}
+                    </TableCell>
                   </TableRow>
 
                   <TableRow>
                     <TableCell>Início: </TableCell>
-                    <TableCell className="text-right">01/03/2024</TableCell>
+                    <TableCell className="text-right">
+                      {contract.start_date}
+                    </TableCell>
                   </TableRow>
 
                   <TableRow>
                     <TableCell>Vencimento: </TableCell>
-                    <TableCell className="text-right">01/03/2025</TableCell>
+                    <TableCell className="text-right">
+                      {contract.end_date}
+                    </TableCell>
                   </TableRow>
 
                   <TableRow>
                     <TableCell>Aluguel: </TableCell>
-                    <TableCell className="text-right">R$ 1.500/mês</TableCell>
+                    <TableCell className="text-right">
+                      {contract.monthly_rent.toLocaleString("pt-br", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}
+                      /mês
+                    </TableCell>
                   </TableRow>
 
                   <TableRow>
                     <TableCell>Caução: </TableCell>
-                    <TableCell className="text-right">R$ 3.000</TableCell>
+                    <TableCell className="text-right">
+                      {contract.security_deposit?.toLocaleString("pt-br", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}
+                    </TableCell>
                   </TableRow>
 
                   <TableRow>
                     <TableCell>Status: </TableCell>
                     <TableCell className="flex justify-end">
-                        <StatusBadge status="expiring"/>                        
+                      <StatusBadge status="expiring" />
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -104,20 +141,20 @@ export default function Page() {
               <CardDescription>HISTÓRICO DE PAGAMENTOS</CardDescription>
               <Separator />
 
-                <Table className="mt-3">
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Mês</TableHead>
-                            <TableHead>Valor</TableHead>
-                            <TableHead>Status</TableHead>
-                        </TableRow>
-                    </TableHeader>
+              <Table className="mt-3">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Mês</TableHead>
+                    <TableHead>Valor</TableHead>
+                    <TableHead>Status</TableHead>
+                  </TableRow>
+                </TableHeader>
                 <TableBody>
                   <TableRow>
                     <TableCell>Jan/25 </TableCell>
                     <TableCell>R$ 1.500</TableCell>
                     <TableCell>
-                        <StatusBadge status="pending"/>
+                      <StatusBadge status="pending" />
                     </TableCell>
                   </TableRow>
 
@@ -125,7 +162,7 @@ export default function Page() {
                     <TableCell>Jan/25 </TableCell>
                     <TableCell>R$ 1.500</TableCell>
                     <TableCell>
-                        <StatusBadge status="paid"/>
+                      <StatusBadge status="paid" />
                     </TableCell>
                   </TableRow>
 
@@ -133,7 +170,7 @@ export default function Page() {
                     <TableCell>Jan/25 </TableCell>
                     <TableCell>R$ 1.500</TableCell>
                     <TableCell>
-                        <StatusBadge status="paid"/>
+                      <StatusBadge status="paid" />
                     </TableCell>
                   </TableRow>
                 </TableBody>

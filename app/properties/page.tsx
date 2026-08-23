@@ -3,82 +3,33 @@ import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import Link from "next/link"
 import { PropertyCard } from "@/components/property-card"
+import { PropertyService } from "@/src/services/properties"
+import { Property } from "@/src/types/property"
 
-const properties = [
+const stats = [
   {
-    id: 1,
-    name: "Casa Jardim Europa",
-    description: "Residencial - Rua das Flores, 120",
-    status: "rented",
-    stats: [{
-      label: "ROE",
-      value: "8,10%",
-      highlight: true
-    },
-    {
-      label: "Aluguel",
-      value: "R$ 1.500",
-      highlight: false
-    },
-    {
-      label: "Val. aprox.",
-      value: "R$ 220k",
-      highlight: false
-    }],
-    tenant: "João Silva"
+    label: "ROE",
+    value: "8,10%",
+    highlight: true,
   },
-
   {
-    id: 2,
-    name: "Casa Jardim Europa",
-    description: "Residencial - Rua das Flores, 120",
-    status: "vacant",
-    stats: [{
-      label: "ROE",
-      value: "8,10%",
-      highlight: true
-    },
-    {
-      label: "Aluguel",
-      value: "R$ 1.500",
-      highlight: false
-    },
-    {
-      label: "Val. aprox.",
-      value: "R$ 220k",
-      highlight: false
-    }],
-    tenant: "João Silva"
+    label: "Aluguel",
+    value: "R$ 1.500",
+    highlight: false,
   },
-
   {
-    id: 3,
-    name: "Casa Jardim Europa",
-    description: "Residencial - Rua das Flores, 120",
-    status: "sold",
-    stats: [{
-      label: "ROE",
-      value: "8,10%",
-      highlight: true
-    },
-    {
-      label: "Aluguel",
-      value: "R$ 1.500",
-      highlight: false
-    },
-    {
-      label: "Val. aprox.",
-      value: "R$ 220k",
-      highlight: false
-    }],
-    tenant: "João Silva"
+    label: "Val. aprox.",
+    value: "R$ 220k",
+    highlight: false,
   },
 ]
 
-export default function Page() {
+export default async function Page() {
+  const properties = await PropertyService.list()
+
   return (
     <>
-      <AppHeader 
+      <AppHeader
         title="Imóveis"
         subtitle="Portfólio de propriedades"
         actions={
@@ -93,17 +44,17 @@ export default function Page() {
 
       <div className="min-h-svh p-4">
         <div className="flex flex-1 gap-4">
-        {properties.map((pro) =>
-          <PropertyCard 
-            key={pro.id}
-            id={pro.id}
-            name={pro.name}
-            description={pro.description}
-            status={pro.status}
-            stats={pro.stats}
-            tenant={pro.tenant}
-          />
-        )}
+          {properties.map((property: Property) => (
+            <PropertyCard
+              key={property.id}
+              id={property.id}
+              name={property.description}
+              description={property.street}
+              status="rented"
+              stats={stats}
+              tenant=""
+            />
+          ))}
         </div>
       </div>
     </>
