@@ -3,16 +3,15 @@ import { Tenant, TenantPayload } from "../types/tenant"
 
 export const TenantService = {
   list: () => {
-    return api.get<Tenant[]>(`/properties/`)
+    return api.get<Tenant[]>(`/tenants/`)
   },
 
-  get: (id: number) => api.get<Tenant>(`/properties/${id}/`),
+  get: (id: number) => api.get<Tenant>(`/tenants/${id}/`),
 
-  create: (data: TenantPayload) =>
-    api.post<Tenant>("/properties/create/", data),
+  create: (data: TenantPayload) => api.post<Tenant>("/tenants/create/", data),
 
   update: (id: number, data: Partial<TenantPayload>) =>
-    api.patch<Tenant>(`/properties/${id}/`, data),
+    api.patch<Tenant>(`/tenants/${id}/`, data),
 
-  delete: (id: number) => api.delete<void>(`/properties/${id}/`),
+  delete: (id: number) => api.delete<void>(`/tenants/${id}/`),
 }

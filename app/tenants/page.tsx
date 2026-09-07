@@ -44,7 +44,7 @@ export default async function Page() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tenants.map((tenant: Tenant) => (
+            {tenants?.map((tenant: Tenant) => (
               <TableRow key={tenant.id}>
                 <TableCell className="flex w-fit items-center gap-4">
                   <div className="h-fit w-fit rounded-3xl bg-blue-300 p-3">

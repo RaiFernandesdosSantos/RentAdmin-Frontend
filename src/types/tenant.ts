@@ -6,7 +6,7 @@ export interface Tenant {
   phone_number: string
   guarantor: boolean
   profession: string
-  monthly_income: string
+  monthly_income: number
   zip_code: string
   street: string
   number: string
@@ -23,7 +23,7 @@ export interface TenantPayload {
   phone_number: string
   guarantor: boolean
   profession: string
-  monthly_income: string
+  monthly_income: number
   zip_code?: string | null
   street?: string | null
   number?: string | null

@@ -68,16 +68,19 @@ export default async function Page() {
                       {contract.start_date} - {contract.end_date}
                     </TableCell>
                     <TableCell>
-                      {contract.monthly_rent.toLocaleString("pt-br", {
+                      {Number(contract.monthly_rent).toLocaleString("pt-br", {
                         style: "currency",
                         currency: "BRL",
                       })}
                     </TableCell>
                     <TableCell>
-                      {contract.security_deposit?.toLocaleString("pt-br", {
-                        style: "currency",
-                        currency: "BRL",
-                      })}
+                      {Number(contract.security_deposit)?.toLocaleString(
+                        "pt-br",
+                        {
+                          style: "currency",
+                          currency: "BRL",
+                        }
+                      )}
                     </TableCell>
                     <TableCell>
                       <StatusBadge status="expiring" />

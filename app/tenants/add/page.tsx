@@ -22,7 +22,7 @@ const tenantSchema = z.object({
   phone_number: z.string().min(1, { message: "Telefone obrigatorio" }),
   guarantor: z.boolean(),
   profession: z.string().min(1, { message: "Profissão obrigatoria" }),
-  monthly_income: z.string().min(1, { message: "Renda mensal obrigatoria" }),
+  monthly_income: z.number().min(1, { message: "Renda mensal obrigatoria" }),
   zip_code: z.string().nullable().optional(),
   street: z.string().nullable().optional(),
   number: z.string().nullable().optional(),
@@ -126,6 +126,14 @@ export default function Page() {
                 />
               </Field>
               <Field>
+                <FieldLabel htmlFor="email">E-mail</FieldLabel>
+                <Input
+                  id="email"
+                  {...form.register("email")}
+                  placeholder="email@exemplo.com"
+                />
+              </Field>
+              <Field>
                 <FieldLabel htmlFor="profissao">Profissão</FieldLabel>
                 <Input
                   id="profissao"
@@ -137,7 +145,7 @@ export default function Page() {
                 <FieldLabel htmlFor="renda">Renda mensal (R$)</FieldLabel>
                 <Input
                   id="renda"
-                  {...form.register("monthly_income")}
+                  {...form.register("monthly_income", { valueAsNumber: true })}
                   placeholder="0,00"
                 />
               </Field>
