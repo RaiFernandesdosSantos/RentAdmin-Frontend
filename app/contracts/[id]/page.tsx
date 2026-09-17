@@ -13,22 +13,21 @@ import {
   TableHead,
 } from "@/components/ui/table"
 import { StatusBadge } from "@/components/app-badge"
-import { Contract } from "@/src/types/contract"
 import { contractsService } from "@/src/services/contracts"
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ id: number }>
-}) {
+interface PageProps {
+  params: Promise<{ id: string }>
+}
+
+export default async function Page({ params }: PageProps) {
   const { id } = await params
-  const contract = await contractsService.get(id)
+  const contract = await contractsService.get(Number(id))
 
   return (
     <>
       <AppHeader
-        title="Contrato - Casa Jardim Europa"
-        subtitle="João Silva - Ativo"
+        title={`Contrato - ${contract.property.description}`}
+        subtitle={`${contract.tenant.name} - Ativo`}
         actions={
           <>
             <Link href="/contracts/">
@@ -42,13 +41,6 @@ export default async function Page({
               <RefreshCw className="h-4 w-4" />
               Renovar
             </Button>
-
-            <Link href="/contracts/edit/1">
-              <Button variant="outline" size="sm">
-                <SquarePen className="h-4 w-4" />
-                Editar
-              </Button>
-            </Link>
 
             <Button variant="outline" size="sm">
               <XIcon className="h-4 w-4" />

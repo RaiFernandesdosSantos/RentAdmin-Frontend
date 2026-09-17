@@ -6,12 +6,12 @@ export interface Contract {
   property: Property
   tenant: Tenant
   guarantor: Tenant | null
-  monthly_rent: string
-  security_deposit: string | null
+  monthly_rent: number
+  security_deposit: number | null
   due_day: number
   start_date: string
   end_date: string
-  status: "ACTIVE" | "EXPIRING" | "EXPIRED" | "CANCELLED" | "RENEWED"
+  status: number
   created_at: string
   updated_at: string
 }
@@ -20,8 +20,8 @@ export interface ContractPayload {
   property: number
   tenant: number
   guarantor?: number | null
-  monthly_rent: string
-  security_deposit?: string | null
+  monthly_rent: number
+  security_deposit?: number | null
   due_day: number
   start_date: string
   end_date: string
