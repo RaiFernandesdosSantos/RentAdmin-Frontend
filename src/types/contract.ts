@@ -20,8 +20,8 @@ export interface ContractPayload {
   property: number
   tenant: number
   guarantor?: number | null
-  monthly_rent: number
-  security_deposit?: number | null
+  monthly_rent: string | number
+  security_deposit?: string | number | null
   due_day: number
   start_date: string
   end_date: string

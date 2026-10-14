@@ -83,10 +83,20 @@ export default async function Page() {
                       )}
                     </TableCell>
                     <TableCell>
-                      <StatusBadge status="expiring" />
+                      <StatusBadge
+                        status={
+                          contract.status === 0
+                            ? "active"
+                            : contract.status === 1
+                              ? "expiring"
+                              : contract.status === 2
+                                ? "overdue"
+                                : "cancelled"
+                        }
+                      />
                     </TableCell>
                     <TableCell className="flex items-center justify-between">
-                      <Link href="/contracts/1">
+                      <Link href={`/contracts/${contract.id}`}>
                         <Button variant="outline">
                           <Eye className="h-4 w-4" />
                         </Button>

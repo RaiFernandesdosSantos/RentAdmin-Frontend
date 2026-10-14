@@ -62,7 +62,7 @@ export default async function Page() {
                   <StatusBadge status="tenant" />
                 </TableCell>
                 <TableCell>
-                  <StatusBadge status="active" />
+                  <StatusBadge status={tenant.is_active ? "active" : "inactive"} />
                 </TableCell>
                 <TableCell className="flex justify-between">
                   <Link href={`/tenants/${tenant.id}`}>
@@ -71,7 +71,7 @@ export default async function Page() {
                     </Button>
                   </Link>
 
-                  <Link href="/tenants/edit/1">
+                  <Link href={`/tenants/edit/${tenant.id}`}>
                     <Button variant="outline" size="sm">
                       <SquarePen className="h-4 w-4" />
                     </Button>

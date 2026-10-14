@@ -17,6 +17,8 @@ import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod"
 import { contractsService } from "@/src/services/contracts"
+import type { Contract } from "@/src/types/contract"
+import { formatCurrency, formatDate } from "@/src/lib/format"
 
 const contractSchema = z.object({
   monthly_rent: z.number().min(1, { message: "Aluguel obrigatorio" }),
@@ -32,6 +34,7 @@ export default function Page() {
   const router = useRouter()
   const id = Number(params.id)
   const [loading, setLoading] = useState(true)
+  const [contract, setContract] = useState<Contract | null>(null)
 
   const form = useForm<ContractFormData>({
     resolver: zodResolver(contractSchema),
@@ -48,6 +51,7 @@ export default function Page() {
     contractsService
       .get(id)
       .then((contract) => {
+        setContract(contract)
         form.reset({
           start_date: contract.start_date,
           end_date: contract.end_date,
@@ -58,11 +62,22 @@ export default function Page() {
       .finally(() => setLoading(false))
   }, [id])
 
+  async function onSubmit(data: ContractFormData) {
+    try {
+      await contractsService.update(id, data)
+      router.push("/contracts/")
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  if (loading) return <div className="p-4">Caregando...</div>
+
   return (
     <>
       <AppHeader
-        title="Contrato - Casa Jardim Europa"
-        subtitle="João Silva - Ativo"
+        title={`Contrato - ${contract?.property.description ?? "..."}`}
+        subtitle={`${contract?.tenant.name ?? ""} - Renovação`}
         actions={
           <>
             <Link href="/contracts/">
@@ -72,7 +87,13 @@ export default function Page() {
               </Button>
             </Link>
 
-            <Button variant="outline" size="sm">
+            <Button
+              variant="outline"
+              size="sm"
+              type="button"
+              disabled={isSubmitting}
+              onClick={handleSubmit(onSubmit)}
+            >
               <RefreshCw className="h-4 w-4" />
               Confirmar Renovação
             </Button>
@@ -92,18 +113,28 @@ export default function Page() {
                   <TableRow>
                     <TableCell>Período: </TableCell>
                     <TableCell className="text-right">
-                      01/03/2024 - 01/03/2025
+                      {contract
+                        ? `${formatDate(contract.start_date)} - ${formatDate(contract.end_date)}`
+                        : "..."}
                     </TableCell>
                   </TableRow>
 
                   <TableRow>
                     <TableCell>Aluguel: </TableCell>
-                    <TableCell className="text-right">R$ 1.500/mês</TableCell>
+                    <TableCell className="text-right">
+                      {contract
+                        ? `${formatCurrency(contract.monthly_rent)}/mês`
+                        : "..."}
+                    </TableCell>
                   </TableRow>
 
                   <TableRow>
                     <TableCell>Caução: </TableCell>
-                    <TableCell className="text-right">R$ 3.000</TableCell>
+                    <TableCell className="text-right">
+                      {contract?.security_deposit != null
+                        ? formatCurrency(contract.security_deposit)
+                        : "—"}
+                    </TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -116,22 +147,66 @@ export default function Page() {
             <CardContent>
               <form action="" className="mt-4">
                 <FormSection title="NOVO PERÍODO E VALORES" columns={1}>
-                  <DatePickerField
-                    label="Nova data de início"
-                    id="start_date"
+                  <Controller
+                    control={control}
+                    name="start_date"
+                    render={({ field }) => (
+                      <DatePickerField
+                        label="Nova data de início"
+                        id="start_date"
+                        value={field.value ? new Date(field.value) : undefined}
+                        onChange={(date) =>
+                          field.onChange(date?.toISOString().split("T")[0])
+                        }
+                      />
+                    )}
                   />
-                  <DatePickerField
-                    label="Nova data de vencimento"
-                    id="end_date"
+
+                  <Controller
+                    control={control}
+                    name="end_date"
+                    render={({ field }) => (
+                      <DatePickerField
+                        label="Nova data de vencimento"
+                        id="end_date"
+                        value={field.value ? new Date(field.value) : undefined}
+                        onChange={(date) =>
+                          field.onChange(date?.toISOString().split("T")[0])
+                        }
+                      />
+                    )}
                   />
+
                   <Field>
-                    <FieldLabel htmlFor="rent">Novo Aluguel (R$)</FieldLabel>
-                    <Input id="monthly_rent" placeholder="0,00" />
+                    <FieldLabel htmlFor="monthly_rent">
+                      Novo Aluguel (R$)
+                    </FieldLabel>
+                    <Input
+                      id="monthly_rent"
+                      placeholder="0,00"
+                      {...register("monthly_rent")}
+                    />
+                    {errors.monthly_rent && (
+                      <p className="text-sm text-red-600">
+                        {errors.monthly_rent.message}
+                      </p>
+                    )}
                   </Field>
 
                   <Field>
-                    <FieldLabel htmlFor="caucao">Caução (R$)</FieldLabel>
-                    <Input id="security_deposit" placeholder="0,00" />
+                    <FieldLabel htmlFor="security_deposit">
+                      Caução (R$)
+                    </FieldLabel>
+                    <Input
+                      id="security_deposit"
+                      placeholder="0,00"
+                      {...register("security_deposit")}
+                    />
+                    {errors.security_deposit && (
+                      <p className="text-sm text-red-600">
+                        {errors.security_deposit.message}
+                      </p>
+                    )}
                   </Field>
                 </FormSection>
               </form>

@@ -3,8 +3,19 @@ import { api } from "./api"
 import type { Contract, ContractPayload } from "@/src/types/contract"
 
 export const contractsService = {
-  list: () => {
-    return api.get<Contract[]>(`/contracts/`)
+  list: (filters?: {
+    tenant?: string
+    guarantor?: string
+    property?: string
+    status?: string
+  }) => {
+    const params = new URLSearchParams()
+    if (filters?.tenant) params.append("tenant", filters.tenant)
+    if (filters?.guarantor) params.append("guarantor", filters.guarantor)
+    if (filters?.property) params.append("property", filters.property)
+    if (filters?.status) params.append("status", filters.status)
+    const query = params.toString()
+    return api.get<Contract[]>(`/contracts/${query ? `?${query}` : ""}`)
   },
 
   get: (id: number) => api.get<Contract>(`/contracts/${id}/`),
@@ -17,8 +28,6 @@ export const contractsService = {
 
   delete: (id: number) => api.delete<void>(`/contracts/${id}/`),
 
-  //Criar modulo para renovação de contratos (Duplicar e extenter data)
-
-  // renew: (id: number, data: ContractPayload) =>
-  //   api.post<Contract>(`/contracts/${id}/renew/`, data),
+  /** Encerra o contrato antecipadamente e cancela cobranças em aberto. */
+  close: (id: number) => api.post<Contract>(`/contracts/${id}/close/`, {}),
 }

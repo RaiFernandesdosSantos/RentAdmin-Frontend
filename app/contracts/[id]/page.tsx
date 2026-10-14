@@ -1,7 +1,7 @@
 import AppHeader from "@/components/app-header"
 import { Card, CardContent, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { SquarePen, ArrowLeft, XIcon, RefreshCw } from "lucide-react"
+import { ArrowLeft, RefreshCw, FileDown } from "lucide-react"
 import Link from "next/link"
 import { Separator } from "@/components/ui/separator"
 import {
@@ -13,21 +13,39 @@ import {
   TableHead,
 } from "@/components/ui/table"
 import { StatusBadge } from "@/components/app-badge"
+import { CloseContractButton } from "@/components/transaction-actions"
 import { contractsService } from "@/src/services/contracts"
+import { TransactionsService, ContractsFilesService } from "@/src/services/finance"
+import { formatCurrency, formatDate } from "@/src/lib/format"
+import type { Transactions } from "@/src/types/finance"
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
+function contractStatusBadge(status: number) {
+  if (status === 0) return "active"
+  if (status === 1) return "expiring"
+  if (status === 2) return "overdue"
+  if (status === 4) return "active"
+  return "cancelled"
+}
+
+function contractStatusLabel(status: number) {
+  const labels = ["Ativo", "A vencer", "Vencido", "Encerrado", "Renovado"]
+  return labels[status]
+}
+
 export default async function Page({ params }: PageProps) {
   const { id } = await params
   const contract = await contractsService.get(Number(id))
+  const charges = await TransactionsService.list({ contract: String(id) })
 
   return (
     <>
       <AppHeader
         title={`Contrato - ${contract.property.description}`}
-        subtitle={`${contract.tenant.name} - Ativo`}
+        subtitle={`${contract.tenant.name} - ${contractStatusLabel(contract.status)}`}
         actions={
           <>
             <Link href="/contracts/">
@@ -37,15 +55,29 @@ export default async function Page({ params }: PageProps) {
               </Button>
             </Link>
 
-            <Button variant="outline" size="sm">
-              <RefreshCw className="h-4 w-4" />
-              Renovar
-            </Button>
+            {contract.status !== 3 && contract.status !== 4 && (
+              <Link href={`/contracts/renew/${contract.id}`}>
+                <Button variant="outline" size="sm">
+                  <RefreshCw className="h-4 w-4" />
+                  Renovar
+                </Button>
+              </Link>
+            )}
 
-            <Button variant="outline" size="sm">
-              <XIcon className="h-4 w-4" />
-              Encerrar
-            </Button>
+            <a
+              href={ContractsFilesService.contractPdfUrl(contract.id)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="outline" size="sm">
+                <FileDown className="h-4 w-4" />
+                Contrato (PDF)
+              </Button>
+            </a>
+
+            {contract.status !== 3 && (
+              <CloseContractButton contractId={contract.id} />
+            )}
           </>
         }
       />
@@ -76,49 +108,54 @@ export default async function Page({ params }: PageProps) {
                   <TableRow>
                     <TableCell>Fiador: </TableCell>
                     <TableCell className="text-right">
-                      {contract.guarantor?.name}
+                      {contract.guarantor?.name ?? "—"}
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableCell>Dia de vencimento: </TableCell>
+                    <TableCell className="text-right">
+                      dia {contract.due_day}
                     </TableCell>
                   </TableRow>
 
                   <TableRow>
                     <TableCell>Início: </TableCell>
                     <TableCell className="text-right">
-                      {contract.start_date}
+                      {formatDate(contract.start_date)}
                     </TableCell>
                   </TableRow>
 
                   <TableRow>
-                    <TableCell>Vencimento: </TableCell>
+                    <TableCell>Término: </TableCell>
                     <TableCell className="text-right">
-                      {contract.end_date}
+                      {formatDate(contract.end_date)}
                     </TableCell>
                   </TableRow>
 
                   <TableRow>
                     <TableCell>Aluguel: </TableCell>
                     <TableCell className="text-right">
-                      {contract.monthly_rent.toLocaleString("pt-br", {
-                        style: "currency",
-                        currency: "BRL",
-                      })}
-                      /mês
+                      {formatCurrency(contract.monthly_rent)}/mês
                     </TableCell>
                   </TableRow>
 
                   <TableRow>
                     <TableCell>Caução: </TableCell>
                     <TableCell className="text-right">
-                      {contract.security_deposit?.toLocaleString("pt-br", {
-                        style: "currency",
-                        currency: "BRL",
-                      })}
+                      {contract.security_deposit != null
+                        ? formatCurrency(contract.security_deposit)
+                        : "—"}
                     </TableCell>
                   </TableRow>
 
                   <TableRow>
                     <TableCell>Status: </TableCell>
                     <TableCell className="flex justify-end">
-                      <StatusBadge status="expiring" />
+                      <StatusBadge
+                        status={contractStatusBadge(contract.status) as never}
+                        label={contractStatusLabel(contract.status)}
+                      />
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -130,41 +167,46 @@ export default async function Page({ params }: PageProps) {
         <div className="w-1/2">
           <Card>
             <CardContent>
-              <CardDescription>HISTÓRICO DE PAGAMENTOS</CardDescription>
+              <CardDescription>COBRANÇAS DO CONTRATO</CardDescription>
               <Separator />
 
               <Table className="mt-3">
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Mês</TableHead>
+                    <TableHead>Descrição</TableHead>
+                    <TableHead>Vencimento</TableHead>
                     <TableHead>Valor</TableHead>
                     <TableHead>Status</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  <TableRow>
-                    <TableCell>Jan/25 </TableCell>
-                    <TableCell>R$ 1.500</TableCell>
-                    <TableCell>
-                      <StatusBadge status="pending" />
-                    </TableCell>
-                  </TableRow>
-
-                  <TableRow>
-                    <TableCell>Jan/25 </TableCell>
-                    <TableCell>R$ 1.500</TableCell>
-                    <TableCell>
-                      <StatusBadge status="paid" />
-                    </TableCell>
-                  </TableRow>
-
-                  <TableRow>
-                    <TableCell>Jan/25 </TableCell>
-                    <TableCell>R$ 1.500</TableCell>
-                    <TableCell>
-                      <StatusBadge status="paid" />
-                    </TableCell>
-                  </TableRow>
+                  {charges.length === 0 && (
+                    <TableRow>
+                      <TableCell colSpan={4} className="text-muted-foreground">
+                        Nenhuma cobrança gerada para este contrato.
+                      </TableCell>
+                    </TableRow>
+                  )}
+                  {charges.map((charge: Transactions) => (
+                    <TableRow key={charge.id}>
+                      <TableCell>{charge.description}</TableCell>
+                      <TableCell>{formatDate(charge.due_date)}</TableCell>
+                      <TableCell>{formatCurrency(charge.amount)}</TableCell>
+                      <TableCell>
+                        <StatusBadge
+                          status={
+                            charge.status === "PENDING"
+                              ? "pending"
+                              : charge.status === "PAID"
+                                ? "paid"
+                                : charge.status === "OVERDUE"
+                                  ? "overdue"
+                                  : "cancelled"
+                          }
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </CardContent>

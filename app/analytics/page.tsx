@@ -1,228 +1,256 @@
+// app/(dashboard)/analytics/page.tsx
+import { analyticsService } from "@/src/services/analytics"
 import AppHeader from "@/components/app-header"
-import {Card, CardHeader, CardContent, CardDescription, CardTitle} from "@/components/ui/card"
-import {Table, TableBody, TableRow, TableCell} from "@/components/ui/table"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Button } from "@/components/ui/button"
-import {Download} from "lucide-react"
 import { MetricCard } from "@/components/metric-card"
-import { Badge } from "@/components/ui/badge"
+import { StatusBadge } from "@/components/app-badge"
+import { PrintButton } from "@/components/entity-actions"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
+import { formatCurrency, formatDate } from "@/src/lib/format"
 
-export default function Page() {
+export default async function Page() {
+  const [summary, chart] = await Promise.all([
+    analyticsService.summary(),
+    analyticsService.revenueChart(),
+  ])
+
   return (
     <>
-      <AppHeader 
+      <AppHeader
         title="Analytics"
-        subtitle="Visão consolidade do portfólio"
+        subtitle="Visão consolidada do portfólio"
         actions={
-          <>
-            <Select>
-              <SelectTrigger className="w-32">
-                <SelectValue placeholder="Ano" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="2025">2025</SelectItem>
-                <SelectItem value="2024">2024</SelectItem>
-              </SelectContent>
-            </Select>
-            
-            <Button variant="outline" size="sm">
-              <Download className="h-4 w-4" />
-              Exportar
-            </Button>
-          </>
+          <PrintButton label="Exportar" />
         }
       />
 
-      <div className="min-h-svh p-4">
-        <div className="h-1/4 flex gap-4 flex-1">
-          <MetricCard 
+      <div className="flex min-h-svh flex-col gap-4 p-4">
+        {/* MÉTRICAS PRINCIPAIS */}
+        <div className="flex gap-4">
+          <MetricCard
             label="Receita Mensal"
-            value="R$ 12.345,00"
-            delta="+5,2 vs. mês anterior"
-            deltaType="up"
+            value={formatCurrency(summary.revenue.total)}
+            delta={`${summary.revenue.delta_pct > 0 ? "+" : ""}${summary.revenue.delta_pct}% vs. mês anterior`}
+            deltaType={summary.revenue.delta_pct >= 0 ? "up" : "down"}
           />
-
-          <MetricCard 
+          <MetricCard
             label="ROE médio do portfólio"
-            value="7,40%"
-            delta="+ 0,3pp"
-            deltaType="up"
-          />
-
-          <MetricCard 
-            label="Vacância"
-            value="1 imóvel"
-            delta="16,60% do porfólio"
-            deltaType="down"
-          />
-
-          <MetricCard 
-            label="Contrato a vencer"
-            value="2"
-            delta="Próx. 60 dias"
+            value={`${summary.roe.average_roe}%`}
             deltaType="neutral"
           />
+          <MetricCard
+            label="Vacância"
+            value={`${summary.vacancy.vacant_count} imóvel${summary.vacancy.vacant_count !== 1 ? "s" : ""}`}
+            delta={`${summary.vacancy.vacant_pct}% do portfólio`}
+            deltaType={summary.vacancy.vacant_count > 0 ? "down" : "up"}
+          />
+          <MetricCard
+            label="Contratos a vencer"
+            value={String(summary.expiring_contracts.length)}
+            delta="Próx. 60 dias"
+            deltaType={
+              summary.expiring_contracts.length > 0 ? "down" : "neutral"
+            }
+          />
         </div>
-        
-        <div className="h-3/4 flex-1">
-          <div className="h-1/2 flex-1 flex gap-4 pt-3">
-            <Card className="w-3/5">
-              <CardHeader className="flex justify-between">
-                <CardTitle>Receita por mês</CardTitle>
-                <CardDescription>Últimos 12 meses</CardDescription>
-              </CardHeader>
-              <CardContent>
-                Graficos
-              </CardContent>
-            </Card>
 
-            <Card className="w-2/5">
-              <CardHeader className="flex justify-between">
-                <CardTitle>ROE por imóvel</CardTitle>
-                <CardDescription>Ver todos</CardDescription>
-              </CardHeader>
-              <CardContent>
+        {/* GRÁFICO + ROE POR IMÓVEL */}
+        <div className="flex gap-4">
+          <Card className="w-3/5">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle className="text-base">Receita por mês</CardTitle>
+              <CardDescription>Últimos 12 meses</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {/* placeholder — substituir por Recharts quando integrar */}
+              <div className="flex h-40 items-end gap-1">
+                {chart.map((item) => {
+                  const max = Math.max(...chart.map((c) => Number(c.total)))
+                  const height = max > 0 ? (Number(item.total) / max) * 100 : 0
+                  return (
+                    <div
+                      key={`${item.year}-${item.month_number}`}
+                      className="flex flex-1 flex-col items-center gap-1"
+                    >
+                      <div
+                        className="w-full rounded-t-sm bg-primary/20"
+                        style={{ height: `${height}%`, minHeight: 4 }}
+                      />
+                      <span className="text-[10px] text-muted-foreground">
+                        {item.month}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="w-2/5">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle className="text-base">ROE por imóvel</CardTitle>
+              <CardDescription>Portfólio completo</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableBody>
+                  {summary.roe.properties.map((prop) => (
+                    <TableRow key={prop.property_id}>
+                      <TableCell>
+                        <div className="flex flex-col">
+                          <span className="text-sm font-medium">
+                            {prop.property_name}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {prop.property_type}
+                          </span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {prop.roe !== null ? (
+                          <span className="font-medium text-green-600">
+                            {prop.roe}%
+                          </span>
+                        ) : (
+                          <StatusBadge status="vacant" />
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* CONTRATOS A VENCER + INADIMPLÊNCIA */}
+        <div className="flex gap-4">
+          <Card className="w-1/2">
+            <CardHeader>
+              <CardTitle className="text-base">
+                Contratos próximos ao vencimento
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {summary.expiring_contracts.length === 0 ? (
+                <p className="text-sm text-muted-foreground">
+                  Nenhum contrato a vencer nos próximos 60 dias.
+                </p>
+              ) : (
                 <Table>
                   <TableBody>
-                    <TableRow>
-                      <TableCell className="flex flex-col">
-                        <span>Casa Jardim Europa</span>
-                        <span className="text-muted-foreground">Residencial</span>
-                      </TableCell>
-                      <TableCell className="text-green-600 text-right">
-                        8,1%
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="flex flex-col">
-                        <span>Casa Jardim Europa</span>
-                        <span className="text-muted-foreground">Residencial</span>
-                      </TableCell>
-                      <TableCell className="text-green-600 text-right">
-                        8,1%
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="flex flex-col">
-                        <span>Casa Jardim Europa</span>
-                        <span className="text-muted-foreground">Residencial</span>
-                      </TableCell>
-                      <TableCell className="text-green-600 text-right">
-                        8,1%
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="flex flex-col">
-                        <span>Casa Jardim Europa</span>
-                        <span className="text-muted-foreground">Residencial</span>
-                      </TableCell>
-                      <TableCell className="text-right text-gray-500">
-                        Vago
-                      </TableCell>
-                    </TableRow>
+                    {summary.expiring_contracts.map((contract) => (
+                      <TableRow key={contract.contract_id}>
+                        <TableCell>
+                          <div className="flex flex-col">
+                            <span className="text-sm font-medium">
+                              {contract.tenant_name}
+                            </span>
+                            <span className="text-xs text-muted-foreground">
+                              {contract.property_name} · vence{" "}
+                              {formatDate(contract.end_date)}
+                            </span>
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <StatusBadge
+                            status="expiring"
+                            label={`${contract.days_remaining} dias`}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
                 </Table>
-              </CardContent>
-            </Card>
-          </div>
+              )}
+            </CardContent>
+          </Card>
 
-          <div className="h-1/2 flex-1 flex gap-4 pt-3">
-            <Card className="w-1/2">
-              <CardHeader className="flex justify-between">
-                <CardTitle>Contratos próximos ao vencimento</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell className="flex flex-col">
-                        <span>João Silva</span>
-                        <span className="text-muted-foreground">Casa Jardim Europa - vence 15/02</span>
-                      </TableCell>
-                      <TableCell>
-                        <div className="bg-orange-500/30 rounded-4xl p-2 w-fit float-right">
-                          <span className="text-yellow-500">22 dias</span>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="flex flex-col">
-                        <span>João Silva</span>
-                        <span className="text-muted-foreground">Casa Jardim Europa - vence 15/02</span>
-                      </TableCell>
-                      <TableCell>
-                        <div className="bg-orange-500/30 rounded-4xl p-2 w-fit float-right">
-                          <span className="text-yellow-500">22 dias</span>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="flex flex-col">
-                        <span>João Silva</span>
-                        <span className="text-muted-foreground">Casa Jardim Europa - vence 15/02</span>
-                      </TableCell>
-                      <TableCell>
-                        <div className="bg-orange-500/30 rounded-4xl p-2 w-fit float-right">
-                          <span className="text-yellow-500">22 dias</span>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
+          <Card className="w-1/2">
+            <CardHeader>
+              <CardTitle className="text-base">Inadimplência</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-medium">
+                          {formatCurrency(summary.default.overdue_this_month)}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          Em aberto este mês
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <StatusBadge
+                        status={
+                          summary.default.overdue_this_month_count === 0
+                            ? "active"
+                            : "overdue"
+                        }
+                        label={`${summary.default.overdue_this_month_count} ocorr.`}
+                      />
+                    </TableCell>
+                  </TableRow>
 
-            <Card className="w-1/2">
-              <CardHeader className="flex justify-between">
-                <CardTitle>Inadimplência</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell className="flex flex-col">
-                        <span>R$ 0,00</span>
-                        <span className="text-muted-foreground">Em abertos este mês</span>
-                      </TableCell>
-                      <TableCell>
-                        <div className="bg-green-700/30 rounded-4xl p-2 w-fit float-right">
-                          <span className="text-green-400">0 ocorr.</span>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="flex flex-col">
-                        <span>R$ 1.200,00</span>
-                        <span className="text-muted-foreground">Acumulado no ano</span>
-                      </TableCell>
-                      <TableCell>
-                        <div className="bg-orange-500/30 rounded-4xl p-2 w-fit float-right">
-                          <span className="text-yellow-500">1 ocorr.</span>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="flex flex-col">
-                        <span>Taxa de Inadimplência</span>
-                        <span className="text-muted-foreground">Últimos 12 meses</span>
-                      </TableCell>
-                      <TableCell>
-                        <div className="bg-green-700/30 rounded-4xl p-2 w-fit float-right">
-                          <span className="text-green-400">2,10%</span>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </div>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-medium">
+                          {formatCurrency(summary.default.overdue_year_total)}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          Acumulado no ano
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <StatusBadge
+                        status={
+                          summary.default.overdue_year_count === 0
+                            ? "active"
+                            : "pending"
+                        }
+                        label={`${summary.default.overdue_year_count} ocorr.`}
+                      />
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-medium">
+                          Taxa de inadimplência
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          Últimos 12 meses
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <StatusBadge
+                        status={
+                          summary.default.default_rate < 5
+                            ? "active"
+                            : "overdue"
+                        }
+                        label={`${summary.default.default_rate}%`}
+                      />
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </>
